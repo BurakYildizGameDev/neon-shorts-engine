@@ -1,0 +1,465 @@
+/* src/ui/style.css */
+:root {
+    --bg-dark: #07090e;
+    --card-bg: #0d111a;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --neon-cyan: #00f0ff;
+    --neon-pink: #ff0055;
+    --neon-green: #00ff88;
+    --neon-yellow: #ffd700;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    overflow-x: hidden;
+}
+
+.studio-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sol Kontrol Paneli */
+.control-panel {
+    width: 480px;
+    min-width: 420px;
+    height: 100%;
+    background: var(--card-bg);
+    border-right: 1px solid var(--border-color);
+    padding: 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+}
+
+.studio-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 14px;
+}
+
+.header-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.lang-select {
+    background: #000;
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    color: var(--neon-cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+}
+
+.badge-neon {
+    display: inline-block;
+    padding: 4px 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    color: var(--neon-cyan);
+    background: rgba(0, 240, 255, 0.1);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    border-radius: 20px;
+}
+
+.logo-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #ffffff;
+}
+
+.logo-text span {
+    color: var(--neon-pink);
+    text-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
+}
+
+.subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Mod Seçici Grid */
+.mode-select-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btn-mode {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.btn-mode:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-mode.active {
+    background: rgba(0, 240, 255, 0.12);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
+}
+
+.mode-icon {
+    font-size: 24px;
+}
+
+.mode-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.mode-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.btn-mode.active .mode-title {
+    color: var(--neon-cyan);
+}
+
+.mode-sub {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+/* Select */
+.styled-select {
+    width: 100%;
+    background: #000;
+    border: 1px solid var(--border-color);
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 10px 12px;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+}
+
+.styled-select:focus {
+    border-color: var(--neon-cyan);
+}
+
+/* Ülke Seçim Izgarası */
+.country-pickers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.picker-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.picker-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.country-select {
+    padding: 8px;
+    font-size: 11px;
+}
+
+/* Kart Bölümleri */
+.card-section {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--neon-cyan);
+    letter-spacing: 1px;
+}
+
+/* Gün Seçici */
+.day-picker-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn-arrow {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-arrow:hover {
+    background: var(--neon-cyan);
+    color: #000;
+}
+
+.day-display-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #000;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    height: 40px;
+    padding: 0 10px;
+}
+
+.day-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.day-input {
+    width: 80px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    text-align: center;
+}
+
+/* Butonlar */
+button {
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    outline: none;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.folder-status-text {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--neon-pink), #a855f7);
+    color: #ffffff;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 20px rgba(255, 0, 85, 0.35);
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255, 0, 85, 0.55);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-batch {
+    background: linear-gradient(135deg, #00f0ff, #00ff88);
+    color: #030408;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+}
+
+.btn-batch:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.5);
+}
+
+.btn-tertiary {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.btn-tertiary:hover {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* İlerleme Çubuğu */
+.progress-container {
+    background: #000;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+#progressPercent {
+    color: var(--neon-cyan);
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+    transition: width 0.1s linear;
+}
+
+.progress-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: var(--text-muted);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Sağ Önizleme Paneli (Telefon Çerçevesi) */
+.preview-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, #111422 0%, #05060a 100%);
+    position: relative;
+    padding: 20px;
+}
+
+.preview-frame {
+    position: relative;
+    height: 88vh;
+    aspect-ratio: 9 / 16;
+    border-radius: 36px;
+    overflow: hidden;
+    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.9), 0 0 0 4px rgba(255, 255, 255, 0.08);
+    background: #000;
+}
+
+.phone-notch {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 18px;
+    background: #000;
+    border-radius: 10px;
+    z-index: 10;
+}
+
+#previewCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.preview-controls {
+    margin-top: 12px;
+}
+
+.live-tag {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--neon-green);
+    letter-spacing: 1px;
+}
