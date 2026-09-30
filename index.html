@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Neon Shorts Studio - 7 Modlu Otonom Fabrika</title>
+    <link rel="stylesheet" href="./src/ui/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="studio-container">
+        <!-- Sol Panel: Kontroller ve Mod Seçimi -->
+        <aside class="control-panel">
+            <header class="studio-header">
+                <div class="header-top-row">
+                    <div class="badge-neon" id="badgeNeon">⚡ 9 MODLU VIRAL SHORTS FABRİKASI</div>
+                    <select id="selectLanguage" class="lang-select" title="Dil / Language">
+                        <option value="tr" selected>🇹🇷 TR</option>
+                        <option value="en">🇺🇸 EN</option>
+                        <option value="es">🇪🇸 ES</option>
+                        <option value="pt">🇧🇷 PT</option>
+                        <option value="de">🇩🇪 DE</option>
+                    </select>
+                </div>
+                <h1 class="logo-text">NEON CORE <span>PRO</span></h1>
+                <p class="subtitle" id="subtitleText">10.000+ Sonsuz Kombinasyon • 1080x1920 60FPS Saf MP4</p>
+            </header>
+
+            <!-- 9 Oyun Modu Seçimi -->
+            <section class="card-section">
+                <label class="section-title">OYUN TÜRÜ (ARCHETYPE)</label>
+                <div class="mode-select-grid" id="modeSelectContainer">
+                    <button class="btn-mode active" data-mode="territory">
+                        <span class="mode-icon">⚔️</span>
+                        <div class="mode-info">
+                            <span class="mode-title">Bölge Savaşı</span>
+                            <span class="mode-sub">Ülkeler, Derbiler & İsimler</span>
+                        </div>
+                    </button>
+                    <button class="btn-mode" data-mode="multiplier">
+                        <span class="mode-icon">🔢</span>
+                        <div class="mode-info">
+                            <span class="mode-title">Çarpan Kapıları</span>
+                            <span class="mode-sub">x2, x3 & +25 Şelalesi</span>
+                        </div>
+                    </button>
+                    <button class="btn-mode" data-mode="hexagonescape">
+                        <span class="mode-icon">🌀</span>
+                        <div class="mode-info">
+                            <span class="mode-title">Altıgen Labirent</span>
+                            <span class="mode-sub">5 Dönen Katmandan Kaçış</span>
+                        </div>
+                    </button>
+                    <button class="btn-mode" data-mode="circle">
+                        <span class="mode-icon">⭕</span>
+                        <div class="mode-info">
+                            <span class="mode-title">Dönen Halka</span>
+                            <span class="mode-sub">Hızlanan Kaçış</span>
+                        </div>
+                    </button>
+                    <button class="btn-mode" data-mode="plinko">
+                        <span class="mode-icon">🎰</span>
+                        <div class="mode-info">
+                            <span class="mode-title">Plinko Kaosu</span>
+                            <span class="mode-sub">ASMR Çivi & Jackpot</span>
+                        </div>
+                    </button>
+                    <button class="btn-mode" data-mode="battleroyale">
+                        <span class="mode-icon">💀</span>
+                        <div class="mode-info">
+                            <span class="mode-title">Battle Royale</span>
+                            <span class="mode-sub">25 Top Hayatta Kalma</span>
+                        </div>
+                    </button>
+                    <button class="btn-mode" data-mode="towercrush">
+                        <span class="mode-icon">🏰</span>
+                        <div class="mode-info">
+                            <span class="mode-title">Kule Parçalama</span>
+                            <span class="mode-sub">150+ Tuğla Yıkımı</span>
+                        </div>
+                    </button>
+                    <button class="btn-mode" data-mode="blackhole">
+                        <span class="mode-icon">🕳️</span>
+                        <div class="mode-info">
+                            <span class="mode-title">Kara Delik</span>
+                            <span class="mode-sub">Yerçekimi Yörüngesi</span>
+                        </div>
+                    </button>
+                    <button class="btn-mode" data-mode="stairrace">
+                        <span class="mode-icon">🪜</span>
+                        <div class="mode-info">
+                            <span class="mode-title">Merdiven Yarışı</span>
+                            <span class="mode-sub">32 Basamak Tırmanış</span>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Devlet / Takım / İsim Seçenekleri (Territory War İçin) -->
+            <section class="card-section" id="sectionFactions">
+                <label class="section-title">TAKIM & İÇERİK SEÇİMİ</label>
+                <select id="selectFactionFormat" class="styled-select">
+                    <option value="countries_2" selected>⚔️ 2 Ülke Düellosu (Varsayılan)</option>
+                    <option value="countries_4">🌍 4 Ülke Dünya Kupası</option>
+                    <option value="superlig_4">⚽ Süper Lig 4 Büyükler (GS, FB, BJK, TS)</option>
+                    <option value="ucl_4">🏆 Şampiyonlar Ligi (Real, Barca, City, Bayern)</option>
+                    <option value="custom_names">💬 Takipçi İsimleri (Yorum Yarışı)</option>
+                    <option value="classic_2">🔴 Kırmızı vs 🔵 Mavi</option>
+                </select>
+
+                <!-- Özel İsimler Giriş Kutusu -->
+                <div id="customNamesBox" class="picker-group hidden" style="margin-top: 6px;">
+                    <label class="picker-label">YARIŞACAK İSİMLER (VİRGÜLLE AYIRIN)</label>
+                    <input type="text" id="inputCustomNames" class="styled-select" value="Ahmet, Burak, Mehmet, Ali, Can, Zeynep" placeholder="Örn: Ahmet, Mehmet, Ali...">
+                </div>
+
+                <!-- 2 Ülke Seçicisi -->
+                <div id="countryPickers2" class="country-pickers-grid">
+                    <div class="picker-group">
+                        <label class="picker-label">1. ÜLKE</label>
+                        <select id="countrySelect1" class="styled-select country-select"></select>
+                    </div>
+                    <div class="picker-group">
+                        <label class="picker-label">2. ÜLKE</label>
+                        <select id="countrySelect2" class="styled-select country-select"></select>
+                    </div>
+                </div>
+
+                <!-- 4 Ülke Seçicisi -->
+                <div id="countryPickers4" class="country-pickers-grid hidden">
+                    <div class="picker-group">
+                        <label class="picker-label">1. ÜLKE</label>
+                        <select id="countrySelect4_1" class="styled-select country-select"></select>
+                    </div>
+                    <div class="picker-group">
+                        <label class="picker-label">2. ÜLKE</label>
+                        <select id="countrySelect4_2" class="styled-select country-select"></select>
+                    </div>
+                    <div class="picker-group">
+                        <label class="picker-label">3. ÜLKE</label>
+                        <select id="countrySelect4_3" class="styled-select country-select"></select>
+                    </div>
+                    <div class="picker-group">
+                        <label class="picker-label">4. ÜLKE</label>
+                        <select id="countrySelect4_4" class="styled-select country-select"></select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gün / Seed Seçici -->
+            <section class="card-section">
+                <label class="section-title">BÖLÜM & TOHUM (SEED)</label>
+                <div class="day-picker-group">
+                    <button id="btnPrevDay" class="btn-arrow" title="Önceki">◀</button>
+                    <div class="day-display-box">
+                        <span class="day-label">BÖLÜM</span>
+                        <input type="number" id="inputDay" value="1" min="1" max="10000" class="day-input">
+                    </div>
+                    <button id="btnNextDay" class="btn-arrow" title="Sonraki">▶</button>
+                </div>
+            </section>
+
+            <!-- Render Performansı & Klasör -->
+            <section class="card-section">
+                <label class="section-title">RENDER HIZI & ÇIKTI DİZİNİ</label>
+                <div class="picker-group" style="margin-bottom: 6px;">
+                    <label class="picker-label">PARALEL İŞLEMCİ ÇEKİRDEĞİ</label>
+                    <select id="selectParallelWorkers" class="styled-select">
+                        <option value="1">1x Standart Worker</option>
+                        <option value="2">2x Çift Çekirdek (2x Hızlı)</option>
+                        <option value="4" selected>⚡ 4x Multi-Worker Havuzu (Maksimum Hız)</option>
+                    </select>
+                </div>
+                <button id="btnSelectFolder" class="btn-secondary">
+                    📁 Çıktı Klasörünü Seç
+                </button>
+                <div id="folderStatus" class="folder-status-text">Klasör seçilmedi (Yedek indirme aktif)</div>
+            </section>
+
+            <!-- Aksiyon Butonları -->
+            <section class="card-section action-section">
+                <button id="btnStartRender" class="btn-primary">
+                    🎬 VİDEOYU ÜRET (MP4)
+                </button>
+                <button id="btnBatchRender" class="btn-batch">
+                    ⚡ 7 GÜNLÜK SERİ PAKETİ ÜRET
+                </button>
+                <button id="btnTogglePreview" class="btn-tertiary">
+                    ▶ Canlı Simülasyonu Duraklat
+                </button>
+            </section>
+
+            <!-- Render İlerleme Çubuğu -->
+            <div id="progressContainer" class="progress-container hidden">
+                <div class="progress-header">
+                    <span id="progressStatusLabel">Render Ediliyor...</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div id="progressBarFill" class="progress-bar-fill"></div>
+                </div>
+                <div class="progress-footer">
+                    <span id="progressFrameCounter">0 / 1680 Kare</span>
+                    <span id="progressSubStatus">60 FPS Sabit Adım</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Sağ Panel: Canlı Dikey 9:16 Önizleme -->
+        <main class="preview-panel">
+            <div class="preview-frame">
+                <div class="phone-notch"></div>
+                <canvas id="previewCanvas" width="1080" height="1920"></canvas>
+            </div>
+            <div class="preview-controls">
+                <span class="live-tag">🔴 CANLI 60 FPS ÖNİZLEME</span>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="./src/ui/app.js"></script>
+</body>
+</html>
