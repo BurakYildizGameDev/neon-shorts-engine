@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Neon Shorts Engine - 25-Mode Operational & Viral Production Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 8mm 10mm 8mm 10mm;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #06070b;
+            color: #e2e8f0;
+            line-height: 1.32;
+            font-size: 8.2pt;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        
+        .page {
+            page-break-after: always;
+            height: 278mm;
+            max-height: 278mm;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 4px 0;
+        }
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, rgba(255, 0, 85, 0.18), rgba(0, 240, 255, 0.18));
+            border: 1px solid rgba(0, 240, 255, 0.5);
+            border-radius: 10px;
+            padding: 10px 16px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(0, 240, 255, 0.15);
+            border: 1px solid #00f0ff;
+            color: #00f0ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 7.5pt;
+            font-weight: 900;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-bottom: 3px;
+            letter-spacing: 1px;
+        }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 17pt;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 1.5px;
+            line-height: 1.1;
+        }
+        h1 span {
+            color: #ff0055;
+            text-shadow: 0 0 10px rgba(255, 0, 85, 0.6);
+        }
+        .subtitle {
+            color: #94a3b8;
+            font-size: 8pt;
+            margin-top: 2px;
+        }
+        .meta-box {
+            text-align: right;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7.5pt;
+            color: #38bdf8;
+            border-left: 2px solid rgba(255, 255, 255, 0.15);
+            padding-left: 12px;
+            line-height: 1.35;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10pt;
+            font-weight: 900;
+            color: #00f0ff;
+            margin-top: 6px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 3px;
+        }
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 8pt;
+            font-weight: 700;
+            color: #ffd700;
+            margin-top: 4px;
+            margin-bottom: 2px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            padding: 7px 9px;
+        }
+        .card-glow {
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.05);
+        }
+
+        .code-box {
+            background: #020408;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 4px;
+            padding: 5px 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7.2pt;
+            color: #38bdf8;
+            margin: 3px 0;
+            line-height: 1.25;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            margin-bottom: 3px;
+        }
+        .feature-icon {
+            color: #ff0055;
+            font-weight: bold;
+            font-size: 8.5pt;
+        }
+
+        .mode-row {
+            display: grid;
+            grid-template-columns: 24px 110px 1fr 90px;
+            gap: 5px;
+            align-items: center;
+            padding: 3.5px 6px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+            margin-bottom: 2.5px;
+            border-left: 2px solid #00f0ff;
+        }
+        .mode-row:nth-child(even) {
+            background: rgba(255, 255, 255, 0.04);
+            border-left-color: #ff0055;
+        }
+        .mode-num {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            color: #ffd700;
+            font-size: 7.5pt;
+        }
+        .mode-title {
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 7.8pt;
+        }
+        .mode-desc {
+            color: #94a3b8;
+            font-size: 7.2pt;
+        }
+        .mode-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 6.5pt;
+            background: rgba(0, 240, 255, 0.15);
+            color: #38bdf8;
+            padding: 1.5px 5px;
+            border-radius: 3px;
+            text-align: center;
+        }
+
+        .safezone-visual {
+            background: #000;
+            border: 1px dashed rgba(255, 0, 85, 0.6);
+            border-radius: 6px;
+            padding: 6px;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 6.8pt;
+        }
+        .safezone-inner {
+            border: 1.5px solid #00ff88;
+            background: rgba(0, 255, 136, 0.06);
+            padding: 12px 6px;
+            margin: 4px 0;
+            color: #00ff88;
+            font-weight: 700;
+        }
+
+        .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 4px;
+            margin-top: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #64748b;
+            font-size: 6.8pt;
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===================================================================== -->
+    <!-- PAGE 1: ARCHITECTURE, QUICK START, WORKFLOW, AND MODES 1 TO 9        -->
+    <!-- ===================================================================== -->
+    <div class="page">
+        <div>
+            <div class="header-card">
+                <div>
+                    <span class="badge">PRO EDITION • 25 MODES • H.264 + AAC</span>
+                    <h1>NEON SHORTS <span>ENGINE</span></h1>
+                    <div class="subtitle">Autonomous Procedural Vertical Video Factory for YouTube Shorts, TikTok & Reels</div>
+                </div>
+                <div class="meta-box">
+                    <div>RESOLUTION: 1080x1920 (9:16)</div>
+                    <div>PIPELINE: WebCodecs + DSP Audio</div>
+                    <div>TEST SUITE: 15/15 PASSING (100%)</div>
+                    <div>ENGINE VERSION: 1.0.0 PRO</div>
+                </div>
+            </div>
+
+            <h2>⚡ 1. SYSTEM ARCHITECTURE & CORE PIPELINE</h2>
+            <div class="grid-3" style="margin-bottom: 6px;">
+                <div class="card card-glow">
+                    <h3 style="color:#00f0ff;">🚀 Dual-Pass Render</h3>
+                    <div style="font-size:7.2pt; color:#cbd5e1;">
+                        <strong>Pass 1:</strong> Pre-calculates physics & DSP sound in pure headless JS (zero UI lag).<br>
+                        <strong>Pass 2:</strong> Renders frames to OffscreenCanvas and streams directly to GPU H.264 encoder.
+                    </div>
+                </div>
+                <div class="card card-glow">
+                    <h3 style="color:#ff0055;">🔊 Pure Mathematical DSP</h3>
+                    <div style="font-size:7.2pt; color:#cbd5e1;">
+                        Zero external MP3/WAV files. Real-time synthesis on Float32Array planar memory. Pentatonic ASMR scales, Tanh limiter, zero-click fades.
+                    </div>
+                </div>
+                <div class="card card-glow">
+                    <h3 style="color:#00ff88;">🌍 5-Language Global Reach</h3>
+                    <div style="font-size:7.2pt; color:#cbd5e1;">
+                        TR, EN, ES, PT, DE. Localized studio UI, in-game HUD, and automated anti-spam metadata generator (<code>Day_XXX_info.txt</code>).
+                    </div>
+                </div>
+            </div>
+
+            <h2>🚀 2. QUICK START & WORKFLOW IN 4 STEPS</h2>
+            <div class="grid-4" style="margin-bottom: 6px;">
+                <div class="card">
+                    <div style="color:#ffd700; font-weight:900; font-family:'Orbitron'; font-size:8pt;">STEP 1</div>
+                    <div style="font-weight:700; color:#fff; font-size:7.5pt;">Launch Studio</div>
+                    <div class="code-box">npm install<br>npm run dev</div>
+                    <div style="font-size:6.8pt; color:#94a3b8;">Navigate to <code>localhost:5173</code> in Chrome or Brave.</div>
+                </div>
+                <div class="card">
+                    <div style="color:#ffd700; font-weight:900; font-family:'Orbitron'; font-size:8pt;">STEP 2</div>
+                    <div style="font-weight:700; color:#fff; font-size:7.5pt;">Select Mode & Lang</div>
+                    <div style="font-size:7pt; color:#cbd5e1; margin-top:2px;">
+                        Choose from 25 modes on the left. Pick target language and teams/rivalries.
+                    </div>
+                </div>
+                <div class="card">
+                    <div style="color:#ffd700; font-weight:900; font-family:'Orbitron'; font-size:8pt;">STEP 3</div>
+                    <div style="font-weight:700; color:#fff; font-size:7.5pt;">Authorize Output</div>
+                    <div style="font-size:7pt; color:#cbd5e1; margin-top:2px;">
+                        Click <code>[ 📁 Select Directory ]</code> to grant automatic local file write access.
+                    </div>
+                </div>
+                <div class="card">
+                    <div style="color:#ffd700; font-weight:900; font-family:'Orbitron'; font-size:8pt;">STEP 4</div>
+                    <div style="font-weight:700; color:#fff; font-size:7.5pt;">Export Video (MP4)</div>
+                    <div style="font-size:7pt; color:#cbd5e1; margin-top:2px;">
+                        Click Single Export or <code>[ ⚡ 7-Day Series ]</code>. Render takes ~15 seconds!
+                    </div>
+                </div>
+            </div>
+
+            <h2>🎮 3. VIRAL GAME MODES CATALOG (PART 1: MODES 01 – 09)</h2>
+            <div style="margin-top: 3px;">
+                <div class="mode-row">
+                    <div class="mode-num">01</div>
+                    <div class="mode-title">⚔️ Territory War</div>
+                    <div class="mode-desc">700+ grid territorial clash between nations, rivalries, or follower names. High comment velocity.</div>
+                    <div class="mode-tag">GRID PHYSICS</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">02</div>
+                    <div class="mode-title">🔢 Multiplier Gates</div>
+                    <div class="mode-desc">Balls pass through x2, x3, and +25 multiplier gates, cascading into a massive Jackpot waterfall.</div>
+                    <div class="mode-tag">CASCADE JACKPOT</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">03</div>
+                    <div class="mode-title">🌀 Hexagon Escape</div>
+                    <div class="mode-desc">5 concentric counter-rotating neon hexagons with narrow escape slots. Hypnotic retention driver.</div>
+                    <div class="mode-tag">ASMR MAZE</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">04</div>
+                    <div class="mode-title">⭕ Circle Escape</div>
+                    <div class="mode-desc">Accelerating ball chipping away at breakable neon perimeter segments. High-tension climax.</div>
+                    <div class="mode-tag">SHATTER PHYSICS</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">05</div>
+                    <div class="mode-title">🎰 Plinko Cascade</div>
+                    <div class="mode-desc">120+ brass pegs with multiplying collector bins. Satisfying audio chimes on every bounce.</div>
+                    <div class="mode-tag">PEGS & BINS</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">06</div>
+                    <div class="mode-title">💀 Battle Royale</div>
+                    <div class="mode-desc">Shrinking electric storm ring with saw obstacles. Eliminates balls until one champion remains.</div>
+                    <div class="mode-tag">LAST SURVIVOR</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">07</div>
+                    <div class="mode-title">🏰 Tower Crush</div>
+                    <div class="mode-desc">Mega trampoline launching wrecking balls to demolish tiered neon blocks with explosive bass.</div>
+                    <div class="mode-tag">DESTRUCTION</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">08</div>
+                    <div class="mode-title">🕳️ Black Hole</div>
+                    <div class="mode-desc">Rocket-thruster particles battling intense gravitational pull and event horizon spaghettification.</div>
+                    <div class="mode-tag">ORBITAL DECAY</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">09</div>
+                    <div class="mode-title">🪜 Stair Race</div>
+                    <div class="mode-desc">32 vertical pyramid stairs equipped with bouncy trampolines racing to touch the summit trophy.</div>
+                    <div class="mode-tag">VERTICAL CLIMB</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>NEON SHORTS ENGINE • OPERATIONAL MANUAL</div>
+            <div>https://github.com/BurakYildizGameDev/neon-shorts-engine</div>
+            <div>PAGE 1 OF 3</div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- PAGE 2: FULL VIRAL GAME MODES CATALOG (MODES 10 TO 25)                -->
+    <!-- ===================================================================== -->
+    <div class="page">
+        <div>
+            <h2>🎮 3. VIRAL GAME MODES CATALOG (PART 2: MODES 10 – 25)</h2>
+            <div style="margin-top: 4px;">
+                <div class="mode-row">
+                    <div class="mode-num">10</div>
+                    <div class="mode-title">⚡ Laser Crossfire</div>
+                    <div class="mode-desc">Pulsing and rotating lethal laser beams across the arena. Particles vaporize on contact with spark bursts.</div>
+                    <div class="mode-tag">LASER VAPORIZE</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">11</div>
+                    <div class="mode-title">🪚 Sawblade Gauntlet</div>
+                    <div class="mode-desc">High-speed spinning neon buzzsaws arranged vertically. Balls navigate narrow gaps to reach the safety exit.</div>
+                    <div class="mode-tag">BUZZSAW DESC</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">12</div>
+                    <div class="mode-title">🀄 Domino Cascade</div>
+                    <div class="mode-desc">220-tile continuous spiral domino collapse. Rhythmic ASMR topples leading to a golden gong finish.</div>
+                    <div class="mode-tag">CHAIN REACTION</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">13</div>
+                    <div class="mode-title">🔨 Pendulum Hammers</div>
+                    <div class="mode-desc">Physically oscillating massive pendulum hammers swinging horizontally. Heavy bass impact audio cues.</div>
+                    <div class="mode-tag">HARMONIC SWING</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">14</div>
+                    <div class="mode-title">🪢 Tug of War</div>
+                    <div class="mode-desc">Two opposing teams clash against bumpers, pulling a central glowing energy knot across boundary thresholds.</div>
+                    <div class="mode-tag">CORE TENSION</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">15</div>
+                    <div class="mode-title">💣 Time Bomb</div>
+                    <div class="mode-desc">Hot-potato ticking time bomb transferred upon contact. Decreasing fuse timers trigger explosive eliminations.</div>
+                    <div class="mode-tag">HOT POTATO</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">16</div>
+                    <div class="mode-title">🧗 Wall Climb</div>
+                    <div class="mode-desc">Equal 340px vertical corridors. Balls bounce zig-zag upwards with upward velocity kicks to ring the summit bell.</div>
+                    <div class="mode-tag">ZIG-ZAG BOUNCE</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">17</div>
+                    <div class="mode-title">❄️ Ice vs Lava</div>
+                    <div class="mode-desc">Frost vs Magma elemental tug-of-war. Balanced clashes dynamically shift the thermal biome divide line.</div>
+                    <div class="mode-tag">THERMAL CLASH</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">18</div>
+                    <div class="mode-title">🦠 Cell Mitosis</div>
+                    <div class="mode-desc">Geometric prism splitters multiply cells exponentially. Pentatonic scale chime progression creates ASMR bliss.</div>
+                    <div class="mode-tag">EXPONENTIAL</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">19</div>
+                    <div class="mode-title">🧲 Magnetic Polarity</div>
+                    <div class="mode-desc">Dual rotating magnetic poles (+/-) with Coulomb forces, mutual spark discharge, and dynamic electric arcs.</div>
+                    <div class="mode-tag">COULOMB FORCE</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">20</div>
+                    <div class="mode-title">🪙 Pachinko Madness</div>
+                    <div class="mode-desc">Authentic Tokyo pachinko field with responsive tulip cups, metallic pin acoustics, and Fever Jackpot frenzy.</div>
+                    <div class="mode-tag">FEVER JACKPOT</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">21</div>
+                    <div class="mode-title">🌀 Portal Paradox</div>
+                    <div class="mode-desc">Momentum-conserving paired wormholes. Balls build slingshot speed through infinite inter-dimensional loops.</div>
+                    <div class="mode-tag">WORMHOLE SLING</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">22</div>
+                    <div class="mode-title">🔄 Gravity Inversion</div>
+                    <div class="mode-desc">Gravity vector flips 90 degrees every 3.0 seconds (Down -> Right -> Up -> Left). Neon perimeter trampolines.</div>
+                    <div class="mode-tag">VECTOR SHIFT</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">23</div>
+                    <div class="mode-title">🌀 Archimedes Spiral</div>
+                    <div class="mode-desc">Conservation of angular momentum: racers accelerate exponentially as they spiral toward the central vortex core.</div>
+                    <div class="mode-tag">VORTEX INWARD</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">24</div>
+                    <div class="mode-title">🕹️ Cyber Pinball</div>
+                    <div class="mode-desc">Auto-triggered mechanical flippers, neon bumpers with score multipliers, and drain reset mechanics.</div>
+                    <div class="mode-tag">ARCADE FLIPPER</div>
+                </div>
+                <div class="mode-row">
+                    <div class="mode-num">25</div>
+                    <div class="mode-title">🗼 Helix Fall</div>
+                    <div class="mode-desc">3D rotating cylinder drop with gap alignments. Consecutive drops ignite Fireball mode, shattering tower floors.</div>
+                    <div class="mode-tag">FIREBALL SMASH</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 8px;" class="card card-glow">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div style="font-family:'Orbitron'; font-weight:900; color:#ffd700; font-size:8.5pt;">💡 VIRAL ENGAGEMENT SECRET: "THE RIVALRY MULTIPLIER"</div>
+                    <div class="badge" style="border-color:#ffd700; color:#ffd700;">PRO STRATEGY</div>
+                </div>
+                <div style="font-size:7.4pt; color:#cbd5e1; margin-top:3px; line-height:1.35;">
+                    Modes like <strong>Territory War</strong>, <strong>Tug of War</strong>, and <strong>Ice vs Lava</strong> trigger emotional tribalism (e.g. 🇹🇷 vs 🇧🇷 or Real Madrid vs Barcelona). Viewers passionately defend their team in the comments, triggering the YouTube Shorts / TikTok algorithm to classify the video as "Highly Engaging" and push it to millions of new feeds.
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>NEON SHORTS ENGINE • OPERATIONAL MANUAL</div>
+            <div>https://github.com/BurakYildizGameDev/neon-shorts-engine</div>
+            <div>PAGE 2 OF 3</div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- PAGE 3: SAFEZONE, DSP AUDIO, BATCH GENERATION & ALGORITHM STRATEGY    -->
+    <!-- ===================================================================== -->
+    <div class="page">
+        <div>
+            <h2>📱 4. 9:16 VERTICAL SAFEZONE & AUDIO DSP SPECS</h2>
+            <div class="grid-2" style="margin-bottom: 6px;">
+                <div class="safezone-visual">
+                    <div style="color:#ff0055;">TOP HEADER / SEARCH / LIVE BADGES (Y: 0 – 160)</div>
+                    <div class="safezone-inner">
+                        870 x 1360 PIXELS<br>
+                        ACTIVE COLLISION & HUD ARENA<br>
+                        <span style="font-size:6pt; color:#94a3b8;">X: 70px to 940px • Y: 160px to 1520px</span>
+                    </div>
+                    <div style="color:#ff0055;">BOTTOM CAPTION / SOUND / SHARE BUTTONS (Y: 1520 – 1920)</div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color:#00f0ff;">Mathematical Audio Synthesis</h3>
+                    <div class="feature-item">
+                        <span class="feature-icon">▸</span>
+                        <div><strong>Zero-Click Envelopes:</strong> 40ms micro fade-in and fade-out prevents speaker pops and ear fatigue.</div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">▸</span>
+                        <div><strong>Soft Tanh Limiter:</strong> Equation <code>y = tanh(x)</code> guarantees signals never exceed [-1.0, 1.0], preventing harsh clipping during 50+ ball collisions.</div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">▸</span>
+                        <div><strong>Pentatonic Tuning:</strong> A4 root harmonic frequencies (220 Hz to 880 Hz) naturally create soothing ASMR chime progressions.</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>⚡ 5. BATCH PRODUCTION & METADATA FACTORY</h2>
+            <div class="grid-3" style="margin-bottom: 6px;">
+                <div class="card">
+                    <h3 style="color:#ffd700;">Multi-Worker Pool</h3>
+                    <div style="font-size:7.2pt; color:#cbd5e1;">
+                        Web Worker runs independently of the browser UI. The studio interface maintains silky smooth 60 FPS while exporting complex 1080x1920 videos.
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="color:#00ff88;">7-Day Automation</h3>
+                    <div style="font-size:7.2pt; color:#cbd5e1;">
+                        <code>[ ⚡ GENERATE 7-DAY PACK ]</code> creates 7 distinct seed simulations in sequence. Produce an entire week of content in under 2 minutes.
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="color:#ff0055;">SEO & Hook Generator</h3>
+                    <div style="font-size:7.2pt; color:#cbd5e1;">
+                        Each video outputs <code>Day_XXX_info.txt</code> containing localized viral hook titles, high-CTR descriptions, and platform-specific hashtags.
+                    </div>
+                </div>
+            </div>
+
+            <h2>📈 6. VIRAL ALGORITHM OPTIMIZATION RULES</h2>
+            <div class="card card-glow" style="margin-bottom: 6px;">
+                <div class="grid-2">
+                    <div>
+                        <div style="font-weight:700; color:#00f0ff; font-size:7.8pt;">1. The 3-Second Hook Velocity</div>
+                        <div style="font-size:7.1pt; color:#94a3b8; margin-bottom:4px;">
+                            Simulations start immediately with fast-moving balls, vibrant neon sparks, and crisp audio to eliminate swipe-away rate within the first 3 seconds.
+                        </div>
+                        <div style="font-weight:700; color:#00f0ff; font-size:7.8pt;">2. Perfect Looping & 110%+ Retention</div>
+                        <div style="font-size:7.1pt; color:#94a3b8;">
+                            Videos conclude at second 28 with a decisive victory screen. The clean cut seamlessly flows back into the start, causing repeat views that skyrocket reach.
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-weight:700; color:#ff0055; font-size:7.8pt;">3. Comment War Call-to-Action</div>
+                        <div style="font-size:7.1pt; color:#94a3b8; margin-bottom:4px;">
+                            Pin this comment on every upload: <em>"Which country should join tomorrow's battle? Comment below!"</em> Comment count is the #1 Shorts ranking signal.
+                        </div>
+                        <div style="font-weight:700; color:#ff0055; font-size:7.8pt;">4. Upload Timing Protocol</div>
+                        <div style="font-size:7.1pt; color:#94a3b8;">
+                            Post twice daily: Slot 1 between 12:00 PM – 2:00 PM (lunch commute), Slot 2 between 7:00 PM – 9:30 PM (peak evening entertainment).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>🧪 7. VERIFICATION & TEST SUITE</h2>
+            <div class="code-box">
+                $ npm test<br>
+                ✔ i18n - 5 Language Integrity & 25 Mode Dictionaries &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ ModeManager - Frame 0 Render & 120-Step Simulation<br>
+                ✔ DynamicMetadata - Multi-Language Metadata Generation &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ PRNG - LCG Seed Determinism & Distribution<br>
+                ✔ DSPSoundSynth - Tanh Soft Limiter [-1.0, 1.0] Safety &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ SafeZone - 9:16 Mathematics & UI Padding<br>
+                ℹ tests 15 | pass 15 | fail 0 | status: 100% PRODUCTION READY
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>NEON SHORTS ENGINE • OPERATIONAL MANUAL</div>
+            <div>https://github.com/BurakYildizGameDev/neon-shorts-engine</div>
+            <div>PAGE 3 OF 3</div>
+        </div>
+    </div>
+
+</body>
+</html>

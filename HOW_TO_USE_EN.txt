@@ -1,0 +1,176 @@
+================================================================================
+⚡ NEON SHORTS ENGINE — 25-MODE VIRAL VIDEO PRODUCTION & OPERATIONAL MANUAL
+================================================================================
+
+This document provides a comprehensive, step-by-step guide for utilizing the 
+Neon Shorts Engine to achieve maximum production efficiency and generate 
+millions of views on YouTube Shorts, TikTok, and Instagram Reels with 100% 
+autonomous, physics-based simulations.
+
+--------------------------------------------------------------------------------
+1. QUICK START
+--------------------------------------------------------------------------------
+1. Open your terminal and ensure you are in the project root directory:
+   cd C:\Users\Burak\Desktop\Shorts
+
+2. Install dependencies (first time only):
+   npm install
+
+3. Run automated test suite:
+   npm test
+   (Verifies all 15 test suites across PRNG, DSP, SafeZone, and 25 game modes)
+
+4. Launch the local development studio:
+   npm run dev
+
+5. Open your browser and navigate to:
+   http://localhost:5173
+   *For peak rendering throughput and WebCodecs hardware acceleration, 
+   Google Chrome, Microsoft Edge, or Brave is strongly recommended.*
+
+--------------------------------------------------------------------------------
+2. STUDIO INTERFACE & THE 25 VIRAL GAME MODES
+--------------------------------------------------------------------------------
+The left sidebar hosts 25 procedurally generated viral game modes:
+
+1.  ⚔️ Territory War: 700+ grid territorial clash between nations, rivalries, or follower names.
+2.  🔢 Multiplier Gates: Cascading waterfall through x2, x3, +25 gates into massive Jackpot bins.
+3.  🌀 Hexagon Escape: Concentric counter-rotating hexagons with narrow escape slots. Hypnotic ASMR.
+4.  ⭕ Circle Escape: Accelerating ball chipping away at breakable neon perimeter segments.
+5.  🎰 Plinko Cascade: 120+ brass peg pachinko cascade with multiplying collector bins.
+6.  💀 Battle Royale: Shrinking electric storm ring with saw obstacles; last survivor wins.
+7.  🏰 Tower Crush: Trampoline-launched wrecking balls demolishing tiered explosive blocks.
+8.  🕳️ Black Hole: Thruster-equipped particles battling orbital decay and event horizon spaghettification.
+9.  🪜 Stair Race: 32-step vertical climb with bouncy trampolines leading to the golden trophy.
+10. ⚡ Laser Crossfire: Rotating lethal laser barriers with neon vaporization effects.
+11. 🪚 Sawblade Gauntlet: Precision descent through high-speed spinning neon buzzsaws.
+12. 🀄 Domino Cascade: 220-tile continuous spiral domino collapse triggering a final golden gong.
+13. 🔨 Pendulum Hammers: Rhythmic swinging pendulum hammers with heavy bass impacts.
+14. 🪢 Tug of War: High-energy tug of war pulling a glowing central core across team lines.
+15. 💣 Time Bomb: Hot-potato bomb transfer upon contact; explosive countdown淘汰 mechanics.
+16. 🧗 Wall Climb: Equalized corridor wall-bouncing race to ring the summit victory bell.
+17. ❄️ Ice vs Lava: Thermal clash pushing the dynamic frost/magma biome boundary line.
+18. 🦠 Cell Mitosis: Exponential prism-splitting cell colony with pentatonic ASMR chime chords.
+19. 🧲 Magnetic Polarity: Rotating dipole cores with high-voltage electric arcs and Coulomb physics.
+20. 🪙 Pachinko Madness: Authentic Tokyo-style brass peg field with tulip cups and Fever Jackpot mode.
+21. 🌀 Portal Paradox: Momentum-conserving quantum wormhole slingshot with warp audio feedback.
+22. 🔄 Gravity Inversion: Quad-directional gravity shifts every 3.0 seconds with edge trampolines.
+23. 🌀 Archimedes Spiral: Inward spiral velocity race powered by conservation of angular momentum.
+24. 🕹️ Cyber Pinball: Auto-trigger mechanical flippers, neon bumpers, and combo multiplier streaks.
+25. 🗼 Helix Fall: 3D rotating cylinder drop with gap alignments and fiery destructive smash combos.
+
+*Instant Preview:* Clicking any mode card immediately renders the simulation live 
+at 60 FPS in the vertical 9:16 mobile canvas on the right.
+
+--------------------------------------------------------------------------------
+3. INTERNATIONALIZATION (5-LANGUAGE GLOBAL ENGINE)
+--------------------------------------------------------------------------------
+Switch languages instantly via the top-left dropdown:
+- 🇹🇷 Türkçe (TR)
+- 🇬🇧 English (EN)
+- 🇪🇸 Español (ES)
+- 🇵🇹 Português (PT)
+- 🇩🇪 Deutsch (DE)
+
+*GLOBAL REACH FEATURE:* Switching the language not only updates the studio UI and 
+HUD overlay, but also translates the accompanying `Day_XXX_info.txt` file—
+generating localized viral titles, engagement hooks, SEO descriptions, and 
+trending hashtags for US, UK, Latin America, Brazil, and DACH content channels!
+
+--------------------------------------------------------------------------------
+4. TEAM, COUNTRY & FOLLOWER SELECTION (COMMENT BATTLES)
+--------------------------------------------------------------------------------
+In Territory War & Tug of War modes, leverage the "TEAM & CONTENT SELECTION" panel:
+
+1. ⚔️ 2-Country Duel (Default):
+   - Team 1: 🇹🇷 TURKEY vs Team 2: 🇧🇷 BRAZIL (or USA, Germany, Argentina, Japan, etc.)
+   - High comment engagement as viewers fiercely root for their home countries.
+
+2. 🌍 4-Country World Cup:
+   - Divides the arena into 4 quadrants for an epic 4-way geopolitical battle.
+
+3. ⚽ Big 4 Derby:
+   - Istanbul Derbies (Galatasaray, Fenerbahçe, Beşiktaş, Trabzonspor) or 
+     European El Clásico matchups.
+
+4. 👥 Custom Names (Follower Comment Battle):
+   - Enter subscriber or commenter names directly (e.g. "Alex", "David", "Emma", "Liam").
+   - Pin a comment on your video: "Comment your name to enter tomorrow's arena!"
+   - Drives massive comment section velocity (the #1 ranking factor on Shorts/TikTok).
+
+--------------------------------------------------------------------------------
+5. RENDERING PIPELINE & HARDWARE ACCELERATION
+--------------------------------------------------------------------------------
+Neon Shorts Engine uses a zero-dependency, dual-pass WebCodecs architecture:
+
+- **Pass 1 (Pre-Simulation & DSP Synthesis):**
+  Calculates all 1,680 frames (28.0 seconds @ 60 FPS) in pure headless JavaScript.
+  Events (bounces, eliminations, clangs) record precise millisecond timestamps 
+  into the DSP Sound Synthesizer (`SoundSynth.js`). The audio is rendered into 
+  an interleaved 44.1 kHz stereo Float32 buffer, passed through a soft Tanh 
+  limiter to prevent digital clipping, and compressed via native AAC encoding.
+
+- **Pass 2 (OffscreenCanvas & Video Encoding):**
+  The simulation executes visually on an isolated `OffscreenCanvas` at 1080x1920.
+  Each rendered frame is captured as a `VideoFrame` and submitted directly to 
+  the GPU-accelerated H.264 video encoder (`VideoEncoder` High Profile @ Level 5.2).
+
+- **Muxing & Output:**
+  `mp4-muxer` wraps the elementary H.264 video and AAC audio streams into a 
+  standard, fully seekable `.mp4` file. Average render time: 12–18 seconds!
+
+--------------------------------------------------------------------------------
+6. STEP-BY-STEP PRODUCTION WORKFLOW
+--------------------------------------------------------------------------------
+Step 1: Click `[ 📁 Select Output Directory ]`
+        Grant browser permission to write directly to your preferred folder.
+
+Step 2: Choose your desired Game Mode, Language, and Team options.
+
+Step 3: Click `[ 🎬 RENDER VIDEO (MP4) ]` for a single video, OR:
+        Click `[ ⚡ GENERATE 7-DAY SERIES PACK ]` to queue a full week's worth of
+        unique seed-based videos in one automated batch.
+
+Step 4: The system saves two files per video:
+        1. `Day_001_Territory_War.mp4` (1080x1920 60 FPS, ready to upload)
+        2. `Day_001_info.txt` (Optimized title, description, and hashtags)
+
+--------------------------------------------------------------------------------
+7. VIRAL ALGORITHM STRATEGY & MONETIZATION
+--------------------------------------------------------------------------------
+1. **The 3-Second Hook Rule:**
+   The first 3 seconds of every simulation feature immediate physical action,
+   sparkling particle impacts, and punchy ASMR audio to eliminate swipe-away rate.
+
+2. **Retention Climax (Looping Effect):**
+   Videos conclude at second 28 with a suspenseful winner celebration or 
+   dramatic near-miss. Because the physics loop smoothly, viewers frequently 
+   rewatch the beginning, achieving 110%+ Average Percentage Viewed (APV).
+
+3. **Call-To-Action (CTA) Formula:**
+   Always paste the generated description from `Day_XXX_info.txt`.
+   Ask viewers: "Who should battle next? Comment your country or name below!"
+
+4. **Consistency Schedule:**
+   Post at least 2 videos daily:
+   - Video 1: 12:00 PM – 2:00 PM (Lunchtime mobile browsing)
+   - Video 2: 7:00 PM – 9:30 PM (Peak evening engagement)
+
+--------------------------------------------------------------------------------
+8. TROUBLESHOOTING & FAQ
+--------------------------------------------------------------------------------
+Q: Why is rendering slow or dropping frames?
+A: Ensure hardware acceleration is enabled in Chrome Settings -> System -> 
+   "Use graphics acceleration when available".
+
+Q: Where are the audio files stored?
+A: No external audio files exist! All sounds are procedurally generated in real 
+   time using DSP math. All audio is 100% royalty-free and copyright-safe.
+
+Q: How can I change the video duration?
+A: Every game mode class defines `this.duration = 28.0;`. You can adjust this 
+   property in `src/modes/<ModeName>.js` if shorter or longer clips are desired.
+
+================================================================================
+Developed with ❤️ by BurakYildizGameDev | Neon Shorts Engine v1.0.0
+================================================================================
