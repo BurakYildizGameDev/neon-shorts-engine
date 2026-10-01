@@ -119,6 +119,9 @@ export class PortalParadoxMode {
             } else if (b.y + b.radius > SAFE_ZONE.endY) {
                 b.y = SAFE_ZONE.endY - b.radius;
                 b.vy = -Math.abs(b.vy) * 0.75;
+                if (Math.abs(b.vy) < 120) {
+                    b.vy = -520;
+                }
             }
 
             // Portal Geçiş Kontrolü
@@ -131,8 +134,8 @@ export class PortalParadoxMode {
                         // Çıkış portalını bul
                         const pOut = this.portals.find(p => p.id === pIn.pairId);
                         if (pOut) {
-                            // Hız büyüklüğünü koru ve hafif hızlandır
-                            const speed = Math.max(450, Math.hypot(b.vx, b.vy) * 1.12);
+                            // Hız büyüklüğünü koru ve hafif hızlandır (üst sınırla sınırlı)
+                            const speed = Math.min(1200, Math.max(450, Math.hypot(b.vx, b.vy) * 1.12));
                             b.x = pOut.x + Math.cos(pOut.angle) * (pOut.radius + b.radius + 5);
                             b.y = pOut.y + Math.sin(pOut.angle) * (pOut.radius + b.radius + 5);
                             b.vx = Math.cos(pOut.angle) * speed;
@@ -242,6 +245,7 @@ export class PortalParadoxMode {
         });
 
         // 4. HUD
+        ctx.beginPath();
         ctx.fillStyle = 'rgba(5, 5, 20, 0.8)';
         ctx.roundRect(540 - 220, SAFE_ZONE.startY + 30, 440, 52, 12);
         ctx.fill();

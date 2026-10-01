@@ -78,6 +78,7 @@ export class HelixFallMode {
 
         // Katmanlarla çarpışma ve delikten geçiş
         this.layers.forEach((layer, idx) => {
+            if (layer.broken) return;
             const diskY = layer.y;
             // Top diskin yüzeyine ulaştığında
             if (b.y + b.radius >= diskY - 6 && b.y - b.radius <= diskY + 8 && b.vy > 0) {
@@ -87,6 +88,8 @@ export class HelixFallMode {
                 // Boşlukta mı?
                 const diffGap = Math.abs(this.angleDiff(currentRelAngle, layer.gapAngle));
                 if (diffGap < layer.gapWidth / 2) {
+                    if (layer.passed) return;
+                    layer.passed = true;
                     // Delikten aşağı düştü!
                     this.streak++;
                     if (this.streak >= 2) this.isFireball = true;
@@ -280,6 +283,7 @@ export class HelixFallMode {
         });
 
         // 6. HUD
+        ctx.beginPath();
         ctx.fillStyle = 'rgba(10, 15, 30, 0.85)';
         ctx.roundRect(540 - 240, SAFE_ZONE.startY + 30, 480, 56, 12);
         ctx.fill();

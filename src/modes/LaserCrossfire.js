@@ -28,10 +28,10 @@ export class LaserCrossfireMode {
 
     initLasers() {
         this.lasers = [
-            { y: 520, angle: 0, speed: 1.2, length: 750, color: '#ff0055', active: true },
-            { y: 760, angle: Math.PI / 4, speed: -1.6, length: 700, color: '#00f0ff', active: true },
-            { y: 1000, angle: Math.PI / 2, speed: 1.4, length: 780, color: '#ffd700', active: true },
-            { y: 1240, angle: -Math.PI / 3, speed: -1.8, length: 720, color: '#00ff88', active: true }
+            { y: 520, angle: 0, speed: 1.2, length: 750, color: '#ff0055', active: true, pulse: 1.0 },
+            { y: 760, angle: Math.PI / 4, speed: -1.6, length: 700, color: '#00f0ff', active: true, pulse: 1.0 },
+            { y: 1000, angle: Math.PI / 2, speed: 1.4, length: 780, color: '#ffd700', active: true, pulse: 1.0 },
+            { y: 1240, angle: -Math.PI / 3, speed: -1.8, length: 720, color: '#00ff88', active: true, pulse: 1.0 }
         ];
     }
 
@@ -107,6 +107,17 @@ export class LaserCrossfireMode {
                 b.vy = -Math.abs(b.vy) * 0.8;
                 if (soundSynth) soundSynth.addGateDing(currentTime, 2.0);
             }
+
+            // Güvenli bölgede kalan topları zeminde tut
+            const floorY = SAFE_ZONE.endY - b.radius;
+            if (b.isSafe && b.y >= floorY) {
+                b.y = floorY;
+                b.vy = -Math.abs(b.vy) * 0.5;
+            }
+
+            // Trail güncelle
+            b.trail.push({ x: b.x, y: b.y });
+            if (b.trail.length > 8) b.trail.shift();
 
             // Lazer Çarpışma Kontrolü (Nokta - Doğru Parçası Mesafesi)
             if (!b.isSafe) {
@@ -209,9 +220,6 @@ export class LaserCrossfireMode {
         for (let i = 0; i < this.balls.length; i++) {
             const b = this.balls[i];
             if (!b.isAlive) continue;
-
-            b.trail.push({ x: b.x, y: b.y });
-            if (b.trail.length > 8) b.trail.shift();
 
             for (let k = 0; k < b.trail.length; k++) {
                 const tr = b.trail[k];

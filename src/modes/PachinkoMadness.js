@@ -59,11 +59,11 @@ export class PachinkoMadnessMode {
         ];
     }
 
-    spawnBall(x, vx = 0) {
+    spawnBall(x, vx) {
         this.balls.push({
-            x: x || (540 + (this.rng.next() - 0.5) * 120),
+            x: x ?? (540 + (this.rng.next() - 0.5) * 120),
             y: SAFE_ZONE.startY + 40,
-            vx: vx || (this.rng.next() - 0.5) * 100,
+            vx: vx ?? (this.rng.next() - 0.5) * 100,
             vy: 80 + this.rng.next() * 60,
             radius: 10,
             color: '#f8fafc',
@@ -101,13 +101,17 @@ export class PachinkoMadnessMode {
             b.x += b.vx * dt;
             b.y += b.vy * dt;
 
-            // Yan duvarlar
+            // Yan duvarlar ve tavan
             if (b.x - b.radius < SAFE_ZONE.startX + 20) {
                 b.x = SAFE_ZONE.startX + 20 + b.radius;
                 b.vx = Math.abs(b.vx) * 0.75;
             } else if (b.x + b.radius > SAFE_ZONE.endX - 20) {
                 b.x = SAFE_ZONE.endX - 20 - b.radius;
                 b.vx = -Math.abs(b.vx) * 0.75;
+            }
+            if (b.y - b.radius < SAFE_ZONE.startY + 20) {
+                b.y = SAFE_ZONE.startY + 20 + b.radius;
+                b.vy = Math.abs(b.vy) * 0.75;
             }
 
             // Pin çarpışmaları
@@ -124,15 +128,17 @@ export class PachinkoMadnessMode {
                     b.x = pin.x + nx * minDist;
                     b.y = pin.y + ny * minDist;
 
-                    // Yüksek sekme & saçılma
+                    // Yüksek sekme & saçılma (sadece yaklaşırken yansıt)
                     const dot = b.vx * nx + b.vy * ny;
-                    b.vx = (b.vx - 1.85 * dot * nx) + (this.rng.next() - 0.5) * 50;
-                    b.vy = (b.vy - 1.85 * dot * ny);
+                    if (dot < 0) {
+                        b.vx = (b.vx - 1.85 * dot * nx) + (this.rng.next() - 0.5) * 50;
+                        b.vy = (b.vy - 1.85 * dot * ny);
+                    }
 
                     pin.hitAnim = 1.0;
 
                     // ASMR metalik tını
-                    const pitch = 900 + (pIdx % 8) * 150 + Math.random() * 80;
+                    const pitch = 900 + (pIdx % 8) * 150 + this.rng.next() * 80;
                     soundSynth?.playBleep(pitch, 0.04, 'sine');
                 }
             }
@@ -274,6 +280,7 @@ export class PachinkoMadnessMode {
         });
 
         // 6. HUD Skor Tablosu
+        ctx.beginPath();
         ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
         ctx.roundRect(540 - 200, SAFE_ZONE.startY + 40, 400, 56, 12);
         ctx.fill();

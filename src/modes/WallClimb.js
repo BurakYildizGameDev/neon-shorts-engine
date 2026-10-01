@@ -30,8 +30,8 @@ export class WallClimbMode {
                 id: 1,
                 name: '🔴 RED CLIMBER',
                 color: '#ff0055',
-                wallMinX: SAFE_ZONE.startX + 40,
-                wallMaxX: 540 - 40,
+                wallMinX: 130,
+                wallMaxX: 470,
                 x: SAFE_ZONE.startX + 120,
                 y: SAFE_ZONE.endY - 60,
                 vx: 380,
@@ -44,8 +44,8 @@ export class WallClimbMode {
                 id: 2,
                 name: '🔵 BLUE CLIMBER',
                 color: '#00d2ff',
-                wallMinX: 540 + 40,
-                wallMaxX: SAFE_ZONE.endX - 40,
+                wallMinX: 610,
+                wallMaxX: 950,
                 x: 540 + 120,
                 y: SAFE_ZONE.endY - 60,
                 vx: -380,
@@ -73,23 +73,23 @@ export class WallClimbMode {
         for (let i = 0; i < this.climbers.length; i++) {
             const c = this.climbers[i];
 
-            c.vy += 420 * dt; // Yerçekimi
+            c.vy += 680 * dt; // Yerçekimi
             c.x += c.vx * dt;
             c.y += c.vy * dt;
 
             // Yan duvarlardan yukarı açılı sekme (Tırmanma İvmesi)
             if (c.x <= c.wallMinX + c.radius) {
                 c.x = c.wallMinX + c.radius;
-                c.vx = Math.abs(c.vx);
-                c.vy = -(380 + Math.random() * 120); // Yukarı zıpla
+                c.vx = Math.abs(c.vx) || 380;
+                c.vy = -(260 + this.rng.next() * 80); // Yukarı zıpla
                 this.screenShake = 1.5;
                 this._createWallSparks(c.x, c.y, c.color);
                 if (soundSynth) soundSynth.addPlink(currentTime, soundSynth.getFrequency(Math.floor((SAFE_ZONE.endY - c.y) / 80)), -0.5, 0.35);
             }
             if (c.x >= c.wallMaxX - c.radius) {
                 c.x = c.wallMaxX - c.radius;
-                c.vx = -Math.abs(c.vx);
-                c.vy = -(380 + Math.random() * 120);
+                c.vx = -(Math.abs(c.vx) || 380);
+                c.vy = -(260 + this.rng.next() * 80);
                 this.screenShake = 1.5;
                 this._createWallSparks(c.x, c.y, c.color);
                 if (soundSynth) soundSynth.addPlink(currentTime, soundSynth.getFrequency(Math.floor((SAFE_ZONE.endY - c.y) / 80)), 0.5, 0.35);
@@ -100,22 +100,24 @@ export class WallClimbMode {
                 c.y = SAFE_ZONE.endY - c.radius;
                 c.vy = -450;
             }
+        }
 
-            // Zirveye ulaştı mı?
-            if (c.y <= this.summitY) {
-                this.winner = c;
-                this.screenShake = 6.0;
-                this._createSummitGlow(c.x, this.summitY);
-                if (soundSynth) soundSynth.addBassDrop(currentTime, 180, 40, 1.0);
-                break;
-            }
+        // Zirve kontrolü (aynı karede geçerlerse y değeri daha düşük olan kazanır)
+        const winners = this.climbers.filter(c => c.y <= this.summitY);
+        if (winners.length > 0) {
+            this.winner = winners.length > 1
+                ? (winners[0].y < winners[1].y ? winners[0] : winners[1])
+                : winners[0];
+            this.screenShake = 6.0;
+            this._createSummitGlow(this.winner.x, this.summitY);
+            if (soundSynth) soundSynth.addBassDrop(currentTime, 180, 40, 1.0);
         }
     }
 
     _createWallSparks(x, y, color) {
         for (let i = 0; i < 6; i++) {
-            const a = -Math.PI / 2 + (Math.random() - 0.5) * 1.5;
-            const spd = 60 + Math.random() * 140;
+            const a = -Math.PI / 2 + (this.rng.next() - 0.5) * 1.5;
+            const spd = 60 + this.rng.next() * 140;
             this.particles.push({
                 x, y,
                 vx: Math.cos(a) * spd,
@@ -129,14 +131,14 @@ export class WallClimbMode {
 
     _createSummitGlow(x, y) {
         for (let i = 0; i < 30; i++) {
-            const a = Math.random() * Math.PI * 2;
-            const spd = 80 + Math.random() * 240;
+            const a = this.rng.next() * Math.PI * 2;
+            const spd = 80 + this.rng.next() * 240;
             this.particles.push({
                 x, y,
                 vx: Math.cos(a) * spd,
                 vy: Math.sin(a) * spd,
                 color: '#ffd700',
-                radius: 3 + Math.random() * 3,
+                radius: 3 + this.rng.next() * 3,
                 life: 0.95
             });
         }
@@ -156,8 +158,8 @@ export class WallClimbMode {
 
         const r1 = this.climbers[0];
         const r2 = this.climbers[1];
-        const height1 = Math.max(0, Math.round(((SAFE_ZONE.endY - r1.y) / (SAFE_ZONE.height - 120)) * 100));
-        const height2 = Math.max(0, Math.round(((SAFE_ZONE.endY - r2.y) / (SAFE_ZONE.height - 120)) * 100));
+        const height1 = Math.min(100, Math.max(0, Math.round(((SAFE_ZONE.endY - r1.y) / (SAFE_ZONE.height - 120 || 1)) * 100)));
+        const height2 = Math.min(100, Math.max(0, Math.round(((SAFE_ZONE.endY - r2.y) / (SAFE_ZONE.height - 120 || 1)) * 100)));
 
         ctx.font = '900 26px "Orbitron", sans-serif';
         ctx.fillStyle = height1 > height2 ? r1.color : r2.color;

@@ -36,17 +36,22 @@ export class ArchimedesSpiralMode {
             { name: '🟢 LIME', color: '#10b981' }
         ];
 
-        this.racers = colors.map((c, i) => ({
-            id: i,
-            name: c.name,
-            color: c.color,
-            theta: this.maxTheta - i * 0.45, // Dıştan başla
-            speed: 1.8 + this.rng.next() * 0.4,
-            radius: 14,
-            rank: i + 1,
-            finished: false,
-            trail: []
-        }));
+        this.racers = colors.map((c, i) => {
+            const theta = this.maxTheta - i * 0.45;
+            return {
+                id: i,
+                name: c.name,
+                color: c.color,
+                theta: theta,
+                speed: 1.8 + this.rng.next() * 0.4,
+                radius: 14,
+                rank: i + 1,
+                finished: false,
+                x: this.centerX + Math.cos(theta) * (theta * this.spiralA),
+                y: this.centerY + Math.sin(theta) * (theta * this.spiralA),
+                trail: []
+            };
+        });
     }
 
     update(currentTime, dt, soundSynth) {
@@ -54,51 +59,52 @@ export class ArchimedesSpiralMode {
         if (this.screenShake > 0) this.screenShake = Math.max(0, this.screenShake - dt * 20);
 
         this.racers.forEach(r => {
-            if (r.finished) return;
+            if (!r.finished) {
+                // Merkeze yaklaştıkça açısal hız artışı (Conservation of angular momentum)
+                const rDist = Math.max(30, r.theta * this.spiralA);
+                const speedMultiplier = 280 / rDist;
+                r.theta -= r.speed * speedMultiplier * dt;
 
-            // Merkeze yaklaştıkça açısal hız artışı (Conservation of angular momentum)
-            const rDist = Math.max(30, r.theta * this.spiralA);
-            const speedMultiplier = 280 / rDist;
-            r.theta -= r.speed * speedMultiplier * dt;
-
-            // Rastgele ivmelenme
-            if (Math.random() < 0.05) {
-                r.speed += (this.rng.next() - 0.45) * 0.3;
-                r.speed = Math.max(1.2, Math.min(3.2, r.speed));
-            }
-
-            // Kartopik / Spiral pozisyon hesaplama
-            r.x = this.centerX + Math.cos(r.theta) * (r.theta * this.spiralA);
-            r.y = this.centerY + Math.sin(r.theta) * (r.theta * this.spiralA);
-
-            // Merkeze ulaştı mı?
-            if (r.theta <= 1.2) {
-                r.finished = true;
-                if (!this.winner) {
-                    this.winner = `${r.name} TAKES THE CORE!`;
-                    this.screenShake = 12;
-
-                    // Zafer havai fişekleri
-                    for (let p = 0; p < 35; p++) {
-                        this.particles.push({
-                            x: this.centerX,
-                            y: this.centerY,
-                            vx: (this.rng.next() - 0.5) * 350,
-                            vy: (this.rng.next() - 0.5) * 350,
-                            size: 4 + this.rng.next() * 6,
-                            color: r.color,
-                            life: 1.2
-                        });
-                    }
-
-                    soundSynth?.playBleep(1100, 0.25, 'sawtooth');
+                // Rastgele ivmelenme
+                if (this.rng.next() < 0.05) {
+                    r.speed += (this.rng.next() - 0.45) * 0.3;
+                    r.speed = Math.max(1.2, Math.min(3.2, r.speed));
                 }
-            }
 
-            // Trail
-            r.trail.push({ x: r.x, y: r.y, alpha: 0.8 });
-            if (r.trail.length > 10) r.trail.shift();
+                // Kartopik / Spiral pozisyon hesaplama
+                r.x = this.centerX + Math.cos(r.theta) * (r.theta * this.spiralA);
+                r.y = this.centerY + Math.sin(r.theta) * (r.theta * this.spiralA);
+
+                // Merkeze ulaştı mı?
+                if (r.theta <= 1.2) {
+                    r.finished = true;
+                    if (!this.winner) {
+                        this.winner = `${r.name} TAKES THE CORE!`;
+                        this.screenShake = 12;
+
+                        // Zafer havai fişekleri
+                        for (let p = 0; p < 35; p++) {
+                            this.particles.push({
+                                x: this.centerX,
+                                y: this.centerY,
+                                vx: (this.rng.next() - 0.5) * 350,
+                                vy: (this.rng.next() - 0.5) * 350,
+                                size: 4 + this.rng.next() * 6,
+                                color: r.color,
+                                life: 1.2
+                            });
+                        }
+
+                        soundSynth?.playBleep(1100, 0.25, 'sawtooth');
+                    }
+                }
+
+                // Trail
+                r.trail.push({ x: r.x, y: r.y, alpha: 0.8 });
+                if (r.trail.length > 10) r.trail.shift();
+            }
             r.trail.forEach(t => t.alpha -= dt * 2.5);
+            r.trail = r.trail.filter(t => t.alpha > 0);
         });
 
         // Partikülleri güncelle
@@ -188,6 +194,7 @@ export class ArchimedesSpiralMode {
         });
 
         // 5. HUD & Sıralama
+        ctx.beginPath();
         ctx.fillStyle = 'rgba(10, 15, 30, 0.85)';
         ctx.roundRect(540 - 240, SAFE_ZONE.startY + 30, 480, 56, 12);
         ctx.fill();

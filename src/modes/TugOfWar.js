@@ -46,7 +46,7 @@ export class TugOfWarMode {
                     id: `${team.id}_${i}`,
                     teamIndex: t,
                     team,
-                    x: startX + (Math.random() - 0.5) * 60,
+                    x: startX + (this.rng.next() - 0.5) * 60,
                     y: 850 + (i - 2) * 80,
                     vx: Math.cos(angle) * speed,
                     vy: Math.sin(angle) * speed,
@@ -74,13 +74,15 @@ export class TugOfWarMode {
         this.knotX += (this.knotTargetX - this.knotX) * dt * 5;
 
         // Kazanan kontrolü
-        if (this.knotX <= 540 - this.winThreshold && !this.winner) {
+        if (this.knotX <= 540 - this.winThreshold + 5 && !this.winner) {
             this.winner = this.teams[0];
             if (soundSynth) soundSynth.addBassDrop(currentTime, 180, 40, 1.0);
-        } else if (this.knotX >= 540 + this.winThreshold && !this.winner) {
+        } else if (this.knotX >= 540 + this.winThreshold - 5 && !this.winner) {
             this.winner = this.teams[1];
             if (soundSynth) soundSynth.addBassDrop(currentTime, 180, 40, 1.0);
         }
+
+        if (this.winner) return;
 
         // Topları güncelle
         for (let i = 0; i < this.balls.length; i++) {
@@ -121,10 +123,14 @@ export class TugOfWarMode {
             const kdy = b.y - this.knotY;
             const kdist = Math.hypot(kdx, kdy);
             if (kdist < b.radius + 32) {
+                if (kdist < 0.001) continue;
                 const knx = kdx / kdist;
                 const kny = kdy / kdist;
-                b.vx = knx * (450 + Math.random() * 150);
-                b.vy = kny * (450 + Math.random() * 150);
+                const overlap = (b.radius + 32) - kdist;
+                b.x += knx * overlap;
+                b.y += kny * overlap;
+                b.vx = knx * (450 + this.rng.next() * 150);
+                b.vy = kny * (450 + this.rng.next() * 150);
 
                 // Düğümü kendi tarafına çek
                 const pullDir = (b.teamIndex === 0) ? -16 : 16;
@@ -192,6 +198,8 @@ export class TugOfWarMode {
         ctx.beginPath();
         ctx.arc(this.knotX, this.knotY, 38 + Math.sin(currentTime * 10) * 4, 0, Math.PI * 2);
         ctx.stroke();
+
+        ctx.globalCompositeOperation = 'source-over';
 
         // Parçacıklar
         for (let i = 0; i < this.particles.length; i++) {

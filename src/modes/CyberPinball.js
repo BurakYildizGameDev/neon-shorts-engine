@@ -156,7 +156,7 @@ export class CyberPinballMode {
                         });
                     }
 
-                    soundSynth?.playBleep(880 + Math.random() * 300, 0.08, 'sawtooth');
+                    soundSynth?.playBleep(880 + this.rng.next() * 300, 0.08, 'sawtooth');
                 }
             });
 
@@ -165,12 +165,13 @@ export class CyberPinballMode {
                 const tipX = f.x + Math.cos(f.currentAngle) * f.length;
                 const tipY = f.y + Math.sin(f.currentAngle) * f.length;
 
-                // Top flipper çizgisine yakınsa otomatik vur
+                // Top flipper çizgisine yakınsa, pivotun önündeyse ve top aşağı düşüyorsa vur
                 const distToFlipper = Math.hypot(b.x - f.x, b.y - f.y);
-                if (distToFlipper < f.length + 30 && b.y > f.y - 40 && b.y < f.y + 40) {
+                const isFront = f.id === 'left' ? b.x >= f.x - 10 : b.x <= f.x + 10;
+                if (distToFlipper < f.length + 30 && b.y > f.y - 40 && b.y < f.y + 40 && b.vy > 0 && isFront) {
                     f.targetAngle = f.flippedAngle;
 
-                    // Topu güçlüce yukarı fırlat
+                    // Topu güçlüce yukarı fırlat (sadece düşerken tetikle)
                     b.vy = -750 - this.rng.next() * 200;
                     b.vx += (f.id === 'left' ? 250 : -250);
                     this.screenShake = 8;
@@ -280,6 +281,7 @@ export class CyberPinballMode {
         });
 
         // 6. HUD Skor
+        ctx.beginPath();
         ctx.fillStyle = 'rgba(10, 15, 30, 0.85)';
         ctx.roundRect(540 - 200, SAFE_ZONE.startY + 35, 400, 56, 12);
         ctx.fill();

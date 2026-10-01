@@ -82,11 +82,14 @@ export class DominoCascadeMode {
 
             // İlk domino taşına vurdu mu?
             const d1 = this.dominoes[0];
-            if (d1 && !d1.isToppled && Math.abs(this.triggerBall.y - d1.y) < 20) {
+            if (d1 && !d1.isToppled && this.triggerBall.y >= d1.y - d1.h) {
                 d1.isToppled = true;
                 this.toppledCount++;
                 this.triggerBall = null;
-                if (soundSynth) soundSynth.addPlink(currentTime, soundSynth.getFrequency(4), 0, 0.4);
+                if (soundSynth) {
+                    const freq = typeof soundSynth.getFrequency === 'function' ? soundSynth.getFrequency(4) : 440;
+                    soundSynth.addPlink(currentTime, freq, 0, 0.4);
+                }
             }
         }
 
@@ -103,11 +106,11 @@ export class DominoCascadeMode {
                         this.toppledCount++;
 
                         if (soundSynth) {
-                            const pitch = soundSynth.getFrequency(i % 11 + 3);
+                            const pitch = typeof soundSynth.getFrequency === 'function' ? soundSynth.getFrequency(i % 11 + 3) : 440 * Math.pow(1.05946, i % 12);
                             soundSynth.addPlink(currentTime, pitch, (d.x - 540) / 470, 0.28);
                         }
 
-                        if (Math.random() < 0.2) {
+                        if (this.rng.next() < 0.2) {
                             this._createSpark(d.x, d.y, d.color);
                         }
                     }
@@ -208,10 +211,10 @@ export class DominoCascadeMode {
             ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fill();
         }
         ctx.globalAlpha = 1.0;
+        ctx.globalCompositeOperation = 'source-over';
 
         // Zafer Ekranı
-        if (pct >= 98 || currentTime >= 26.5) {
-            ctx.globalCompositeOperation = 'source-over';
+        if (currentTime >= 26.5) {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.78)';
             ctx.fillRect(0, 0, 1080, 1920);
 

@@ -129,9 +129,12 @@ export class CellMitosisMode {
                 const dist = Math.hypot(dx, dy);
 
                 if (dist < c.radius + sp.radius) {
-                    // Sekme fiziği
+                    // Sekme fiziği ve çakışma giderme (sıkışmayı önle)
                     const nx = dx / (dist || 1);
                     const ny = dy / (dist || 1);
+                    const overlap = (c.radius + sp.radius) - dist;
+                    c.x += nx * (overlap + 1);
+                    c.y += ny * (overlap + 1);
                     c.vx = nx * 220;
                     c.vy = ny * 220;
 
@@ -144,7 +147,7 @@ export class CellMitosisMode {
 
                         // İkinci hücreyi doğur (Daughter cell)
                         const daughter = {
-                            id: Date.now() + Math.random(),
+                            id: `${c.id}_${c.generation}_${newCells.length}`,
                             x: c.x + nx * (c.radius + 4),
                             y: c.y + ny * (c.radius + 4),
                             vx: -c.vx * 0.9 + (this.rng.next() - 0.5) * 80,
@@ -279,6 +282,7 @@ export class CellMitosisMode {
         });
 
         // 5. HUD Bilgileri
+        ctx.beginPath();
         ctx.fillStyle = 'rgba(5, 5, 15, 0.75)';
         ctx.roundRect(540 - 240, SAFE_ZONE.startY + 30, 480, 52, 12);
         ctx.fill();

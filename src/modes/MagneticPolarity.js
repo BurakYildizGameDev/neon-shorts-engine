@@ -27,10 +27,12 @@ export class MagneticPolarityMode {
     }
 
     initCores() {
+        const centerX = 540;
+        const centerY = (SAFE_ZONE.startY + SAFE_ZONE.endY) / 2;
         // İki dönen manyetik kutup çekirdeği
         this.magneticCores = [
-            { polarity: 1, angle: 0, radius: 36, orbitR: 160, color: '#ff0055', label: '+' },
-            { polarity: -1, angle: Math.PI, radius: 36, orbitR: 160, color: '#00d2ff', label: '-' }
+            { polarity: 1, angle: 0, radius: 36, orbitR: 160, color: '#ff0055', label: '+', x: centerX + 160, y: centerY },
+            { polarity: -1, angle: Math.PI, radius: 36, orbitR: 160, color: '#00d2ff', label: '-', x: centerX - 160, y: centerY }
         ];
     }
 
@@ -119,14 +121,17 @@ export class MagneticPolarityMode {
                         b2.y += ny * overlap * 0.5;
 
                         // Sekme
-                        const p = 2 * (nx * (b.vx - b2.vx) + ny * (b.vy - b2.vy)) / 2;
-                        b.vx -= p * nx;
-                        b.vy -= p * ny;
-                        b2.vx += p * nx;
-                        b2.vy += p * ny;
+                        const p = nx * (b.vx - b2.vx) + ny * (b.vy - b2.vy);
+                        if (p > 0) {
+                            b.vx -= p * nx;
+                            b.vy -= p * ny;
+                            b2.vx += p * nx;
+                            b2.vy += p * ny;
+                        }
 
                         if (attract && b.sparkCooldown <= 0) {
                             b.sparkCooldown = 0.2;
+                            b2.sparkCooldown = 0.2;
                             this.totalClashes++;
                             this.screenShake = 5;
 
@@ -142,7 +147,8 @@ export class MagneticPolarityMode {
                                     life: 0.4
                                 });
                             }
-                            soundSynth?.playBleep(520 + Math.random() * 200, 0.05, 'triangle');
+
+                            soundSynth?.playBleep(520 + this.rng.next() * 200, 0.05, 'triangle');
                         }
                     }
                 }
@@ -262,6 +268,7 @@ export class MagneticPolarityMode {
         });
 
         // 6. HUD
+        ctx.beginPath();
         ctx.fillStyle = 'rgba(10, 10, 20, 0.75)';
         ctx.roundRect(540 - 220, SAFE_ZONE.startY + 24, 440, 50, 12);
         ctx.fill();

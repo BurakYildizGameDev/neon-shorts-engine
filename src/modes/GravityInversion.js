@@ -124,16 +124,18 @@ export class GravityInversionMode {
                     b2.x += nx * overlap * 0.5;
                     b2.y += ny * overlap * 0.5;
 
-                    const p = 2 * (nx * (b.vx - b2.vx) + ny * (b.vy - b2.vy)) / 2;
-                    b.vx -= p * nx;
-                    b.vy -= p * ny;
-                    b2.vx += p * nx;
-                    b2.vy += p * ny;
+                    const p = nx * (b.vx - b2.vx) + ny * (b.vy - b2.vy);
+                    if (p > 0) {
+                        b.vx -= p * nx;
+                        b.vy -= p * ny;
+                        b2.vx += p * nx;
+                        b2.vy += p * ny;
+                    }
                 }
             }
 
             // Trail
-            if (Math.random() < 0.4) {
+            if (this.rng.next() < 0.4) {
                 b.trail.push({ x: b.x, y: b.y, alpha: 0.6 });
             }
             if (b.trail.length > 7) b.trail.shift();
@@ -210,6 +212,7 @@ export class GravityInversionMode {
         });
 
         // 5. HUD Uyarı Göstergesi
+        ctx.beginPath();
         ctx.fillStyle = 'rgba(15, 10, 30, 0.85)';
         ctx.roundRect(540 - 240, SAFE_ZONE.startY + 40, 480, 56, 12);
         ctx.fill();

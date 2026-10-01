@@ -41,14 +41,14 @@ export class SawbladeGauntletMode {
         const colors = ['#00f0ff', '#00ff88', '#ffd700', '#a855f7', '#ffffff', '#ff7700'];
 
         for (let i = 0; i < this.totalBalls; i++) {
-            const x = 540 + (i - this.totalBalls / 2) * 28 + (Math.random() - 0.5) * 20;
-            const y = SAFE_ZONE.startY + 60 + Math.random() * 60;
+            const x = 540 + (i - this.totalBalls / 2) * 28 + (this.rng.next() - 0.5) * 20;
+            const y = SAFE_ZONE.startY + 60 + this.rng.next() * 60;
             this.balls.push({
                 id: i + 1,
                 x,
                 y,
-                vx: (Math.random() - 0.5) * 160,
-                vy: 120 + Math.random() * 80,
+                vx: (this.rng.next() - 0.5) * 160,
+                vy: 120 + this.rng.next() * 80,
                 radius: 12,
                 color: colors[i % colors.length],
                 isAlive: true,
@@ -85,8 +85,10 @@ export class SawbladeGauntletMode {
 
             const minX = SAFE_ZONE.startX + b.radius;
             const maxX = SAFE_ZONE.endX - b.radius;
+            const minY = SAFE_ZONE.startY + b.radius;
             if (b.x <= minX) { b.x = minX; b.vx = Math.abs(b.vx) * 0.85; }
             if (b.x >= maxX) { b.x = maxX; b.vx = -Math.abs(b.vx) * 0.85; }
+            if (b.y <= minY) { b.y = minY; b.vy = Math.abs(b.vy) * 0.85; }
 
             // Çıkışa ulaştı mı?
             if (b.y >= exitY && !b.isEscaped) {
@@ -95,6 +97,17 @@ export class SawbladeGauntletMode {
                 b.vy = -Math.abs(b.vy) * 0.6;
                 if (soundSynth) soundSynth.addGateDing(currentTime, 2.5);
             }
+
+            // Çıkış alanında kalan topları zeminde tut
+            const floorY = SAFE_ZONE.endY - b.radius;
+            if (b.isEscaped && b.y >= floorY) {
+                b.y = floorY;
+                b.vy = -Math.abs(b.vy) * 0.5;
+            }
+
+            // Trail güncelle
+            b.trail.push({ x: b.x, y: b.y });
+            if (b.trail.length > 8) b.trail.shift();
 
             // Testere çarpışması
             if (!b.isEscaped) {
@@ -192,9 +205,6 @@ export class SawbladeGauntletMode {
         for (let i = 0; i < this.balls.length; i++) {
             const b = this.balls[i];
             if (!b.isAlive) continue;
-
-            b.trail.push({ x: b.x, y: b.y });
-            if (b.trail.length > 8) b.trail.shift();
 
             for (let k = 0; k < b.trail.length; k++) {
                 const tr = b.trail[k];

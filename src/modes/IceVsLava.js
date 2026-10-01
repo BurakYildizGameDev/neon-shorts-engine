@@ -108,14 +108,11 @@ export class IceVsLavaMode {
 
             // Biyom kuralları: Sınırın solunda buz sürtünmesi (kayma), sağında lav viskozitesi (direnç + itme)
             if (b.x < this.boundaryX) {
-                // Buz Biyomu: Çok düşük sürtünme, yüksek hızlanma
-                b.vx += (b.team === 'ice' ? 40 : -30) * dt;
-                b.vy += 80 * dt; // Hafif yerçekimi
+                // Ice territory
+                b.vx += (b.team === 'ice' ? -40 : 40) * dt;
             } else {
-                // Lav Biyomu: Yoğun sürtünme ama yukarı termal itme
-                b.vx -= (b.team === 'lava' ? 40 : -30) * dt;
-                b.vy += 40 * dt;
-                b.vy -= 120 * dt; // Sıcak hava yükselmesi
+                // Lava territory  
+                b.vx += (b.team === 'lava' ? 40 : -40) * dt;
             }
 
             b.x += b.vx * dt;
@@ -147,7 +144,7 @@ export class IceVsLavaMode {
             });
 
             // Trail
-            if (Math.random() < 0.3) {
+            if (this.rng.next() < 0.3) {
                 b.trail.push({ x: b.x, y: b.y, alpha: 0.6 });
             }
             if (b.trail.length > 8) b.trail.shift();
@@ -177,7 +174,9 @@ export class IceVsLavaMode {
                     // Hız değişimi
                     const kx = b1.vx - b2.vx;
                     const ky = b1.vy - b2.vy;
-                    const p = 2 * (nx * kx + ny * ky) / 2;
+                    const relDot = nx * kx + ny * ky;
+                    if (relDot <= 0) continue; // Already separating, skip
+                    const p = relDot;
                     b1.vx -= p * nx;
                     b1.vy -= p * ny;
                     b2.vx += p * nx;
@@ -187,14 +186,11 @@ export class IceVsLavaMode {
                     if (b1.team !== b2.team) {
                         this.screenShake = 6;
                         // Sınır itmesi
-                        if (b1.team === 'ice') {
+                        const clashWinner = this.rng.next() < 0.5 ? 'ice' : 'lava';
+                        if (clashWinner === 'ice') {
                             this.boundaryX += 3;
-                            this.scoreIce += 0.5;
-                            this.scoreLava -= 0.5;
                         } else {
                             this.boundaryX -= 3;
-                            this.scoreLava += 0.5;
-                            this.scoreIce -= 0.5;
                         }
 
                         // Buhar partikülleri
@@ -209,7 +205,7 @@ export class IceVsLavaMode {
                                 life: 0.6
                             });
                         }
-                        soundSynth?.playBleep(320 + Math.random() * 200, 0.05, 'triangle');
+                        soundSynth?.playBleep(320 + this.rng.next() * 200, 0.05, 'triangle');
                     }
                 }
             }

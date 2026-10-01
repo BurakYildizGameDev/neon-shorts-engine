@@ -32,6 +32,11 @@ export class PendulumHammersMode {
             { anchorX: 380, anchorY: 880, length: 230, angle: -1.0, maxAngle: 1.1, speed: 3.1, headR: 40, color: '#00f0ff' },
             { anchorX: 680, anchorY: 1140, length: 250, angle: 0.8, maxAngle: 1.3, speed: -3.3, headR: 44, color: '#00ff88' }
         ];
+        this.hammers.forEach(h => {
+            h.phase = Math.asin(Math.max(-1, Math.min(1, h.angle / h.maxAngle)));
+            h.headX = h.anchorX + Math.sin(h.angle) * h.length;
+            h.headY = h.anchorY + Math.cos(h.angle) * h.length;
+        });
     }
 
     initBalls() {
@@ -41,10 +46,10 @@ export class PendulumHammersMode {
         for (let i = 0; i < this.totalBalls; i++) {
             this.balls.push({
                 id: i + 1,
-                x: 540 + (i - this.totalBalls / 2) * 26 + (Math.random() - 0.5) * 15,
-                y: SAFE_ZONE.startY + 60 + Math.random() * 50,
-                vx: (Math.random() - 0.5) * 120,
-                vy: 100 + Math.random() * 80,
+                x: 540 + (i - this.totalBalls / 2) * 26 + (this.rng.next() - 0.5) * 15,
+                y: SAFE_ZONE.startY + 60 + this.rng.next() * 50,
+                vx: (this.rng.next() - 0.5) * 120,
+                vy: 100 + this.rng.next() * 80,
                 radius: 12,
                 color: colors[i % colors.length],
                 isAlive: true,
@@ -68,7 +73,7 @@ export class PendulumHammersMode {
         // Sarkaçları salındır
         for (let i = 0; i < this.hammers.length; i++) {
             const h = this.hammers[i];
-            h.angle = Math.sin(currentTime * h.speed) * h.maxAngle;
+            h.angle = Math.sin(currentTime * h.speed + (h.phase || 0)) * h.maxAngle;
             h.headX = h.anchorX + Math.sin(h.angle) * h.length;
             h.headY = h.anchorY + Math.cos(h.angle) * h.length;
         }
@@ -85,8 +90,10 @@ export class PendulumHammersMode {
 
             const minX = SAFE_ZONE.startX + b.radius;
             const maxX = SAFE_ZONE.endX - b.radius;
+            const minY = SAFE_ZONE.startY + b.radius;
             if (b.x <= minX) { b.x = minX; b.vx = Math.abs(b.vx) * 0.85; }
             if (b.x >= maxX) { b.x = maxX; b.vx = -Math.abs(b.vx) * 0.85; }
+            if (b.y <= minY) { b.y = minY; b.vy = Math.abs(b.vy) * 0.85; }
 
             // Hedefe ulaştı mı?
             if (b.y >= safeY && !b.isSafe) {
@@ -95,6 +102,17 @@ export class PendulumHammersMode {
                 b.vy = -Math.abs(b.vy) * 0.6;
                 if (soundSynth) soundSynth.addGateDing(currentTime, 2.0);
             }
+
+            // Güvenli bölgede kalan topları zeminde tut
+            const floorY = SAFE_ZONE.endY - b.radius;
+            if (b.isSafe && b.y >= floorY) {
+                b.y = floorY;
+                b.vy = -Math.abs(b.vy) * 0.5;
+            }
+
+            // Trail güncelle
+            b.trail.push({ x: b.x, y: b.y });
+            if (b.trail.length > 8) b.trail.shift();
 
             // Tokmak çarpışması
             if (!b.isSafe) {
@@ -190,9 +208,6 @@ export class PendulumHammersMode {
         for (let i = 0; i < this.balls.length; i++) {
             const b = this.balls[i];
             if (!b.isAlive) continue;
-
-            b.trail.push({ x: b.x, y: b.y });
-            if (b.trail.length > 8) b.trail.shift();
 
             for (let k = 0; k < b.trail.length; k++) {
                 const tr = b.trail[k];

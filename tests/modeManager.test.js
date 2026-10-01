@@ -12,6 +12,15 @@ const EXPECTED_25_MODES = [
     'portal', 'gravityflip', 'spiral', 'pinball', 'helix'
 ];
 
+function assertFinite(...args) {
+    for (let i = 0; i < args.length; i++) {
+        const val = args[i];
+        if (typeof val !== 'number' || !Number.isFinite(val)) {
+            throw new TypeError(`Canvas argument ${i} is not a finite number: ${val}`);
+        }
+    }
+}
+
 function createMockCanvasContext() {
     const dummyGradient = {
         addColorStop: () => {}
@@ -19,28 +28,28 @@ function createMockCanvasContext() {
     return {
         save: () => {},
         restore: () => {},
-        translate: () => {},
-        rotate: () => {},
-        scale: () => {},
+        translate: (x, y) => { assertFinite(x, y); },
+        rotate: (angle) => { assertFinite(angle); },
+        scale: (x, y) => { assertFinite(x, y); },
         beginPath: () => {},
         closePath: () => {},
-        moveTo: () => {},
-        lineTo: () => {},
-        arc: () => {},
-        ellipse: () => {},
-        roundRect: () => {},
-        rect: () => {},
-        fillRect: () => {},
-        strokeRect: () => {},
+        moveTo: (x, y) => { assertFinite(x, y); },
+        lineTo: (x, y) => { assertFinite(x, y); },
+        arc: (x, y, r, sa, ea) => { assertFinite(x, y, r, sa, ea); },
+        ellipse: (x, y, rx, ry, rot, sa, ea) => { assertFinite(x, y, rx, ry, rot, sa, ea); },
+        roundRect: (x, y, w, h, r) => { assertFinite(x, y, w, h); },
+        rect: (x, y, w, h) => { assertFinite(x, y, w, h); },
+        fillRect: (x, y, w, h) => { assertFinite(x, y, w, h); },
+        strokeRect: (x, y, w, h) => { assertFinite(x, y, w, h); },
         stroke: () => {},
         fill: () => {},
-        fillText: () => {},
-        strokeText: () => {},
+        fillText: (text, x, y) => { assertFinite(x, y); },
+        strokeText: (text, x, y) => { assertFinite(x, y); },
         setLineDash: () => {},
         getLineDash: () => [],
-        createLinearGradient: () => dummyGradient,
-        createRadialGradient: () => dummyGradient,
-        measureText: (text) => ({ width: text.length * 10 }),
+        createLinearGradient: (x0, y0, x1, y1) => { assertFinite(x0, y0, x1, y1); return dummyGradient; },
+        createRadialGradient: (x0, y0, r0, x1, y1, r1) => { assertFinite(x0, y0, r0, x1, y1, r1); return dummyGradient; },
+        measureText: (text) => ({ width: (text ? text.length : 0) * 10 }),
         fillStyle: '#000000',
         strokeStyle: '#000000',
         lineWidth: 1,
@@ -53,7 +62,8 @@ function createMockCanvasContext() {
         font: '10px sans-serif',
         textAlign: 'start',
         textBaseline: 'alphabetic',
-        globalAlpha: 1.0
+        globalAlpha: 1.0,
+        globalCompositeOperation: 'source-over'
     };
 }
 
@@ -71,7 +81,7 @@ test('ModeManager - 25 Oyun Modunun Eksiksiz Tanımlanması', () => {
     });
 });
 
-test('ModeManager - Tüm 25 Modun Başlatılması, 60 Kare Simülasyonu ve Render Testi', () => {
+test('ModeManager - Tüm 25 Modun Başlatılması, İlk Kare (Frame 0) Render ve 120 Kare Simülasyonu', () => {
     const synth = new DSPSoundSynth(44100, 2.0);
     const mockCtx = createMockCanvasContext();
     const DT = 1 / 60;
@@ -83,8 +93,13 @@ test('ModeManager - Tüm 25 Modun Başlatılması, 60 Kare Simülasyonu ve Rende
         assert.ok(typeof mode.render === 'function', `${modeId} render metodu içermiyor`);
         assert.ok(mode.duration > 0, `${modeId} duration geçerli bir süre içermiyor`);
 
-        // 60 Adım fizik güncellemesi ve render testi
-        for (let frame = 0; frame < 60; frame++) {
+        // Frame 0 Testi: Update çağrılmadan önce doğrudan render (önizleme güvenliği)
+        assert.doesNotThrow(() => {
+            mode.render(mockCtx, 0);
+        }, `${modeId} modu henüz update çağrılmadan ilk karede (frame 0) render hatası verdi (NaN/undefined)`);
+
+        // 120 Adım fizik güncellemesi ve render testi
+        for (let frame = 1; frame <= 120; frame++) {
             const currentTime = frame * DT;
             assert.doesNotThrow(() => {
                 mode.update(currentTime, DT, synth);

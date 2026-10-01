@@ -4,7 +4,7 @@ import { PRNG } from '../generator/PRNG.js';
 
 /**
  * 💣 SAATLİ BOMBA (HOT POTATO TIME BOMB)
- * 18 top ekranda serbestçe dolaşır. Bir topun üzerinde patlamaya hazır saatli bomba vardır.
+ * 10 top ekranda serbestçe dolaşır. Bir topun üzerinde patlamaya hazır saatli bomba vardır.
  * Çarpışan toplar bombayı birbirine devreder. Süre dolduğunda bomba patlar ve top yok olur!
  * Son hayatta kalan 1 şampiyon top kazanır.
  */
@@ -17,7 +17,7 @@ export class TimeBombMode {
 
         this.balls = [];
         this.particles = [];
-        this.totalBalls = 18;
+        this.totalBalls = 10;
         this.bombTimer = 3.8; // Her 3.8 saniyede bir patlar
         this.currentBombTime = 3.8;
         this.bombHolderIndex = 0;
@@ -91,7 +91,8 @@ export class TimeBombMode {
                 const nextVictim = this.rng.choice(remaining);
                 this.bombHolderIndex = this.balls.indexOf(nextVictim);
                 nextVictim.hasBomb = true;
-                this.currentBombTime = Math.max(2.4, this.bombTimer * 0.9);
+                this.bombTimer = Math.max(1.5, this.bombTimer * 0.82);
+                this.currentBombTime = this.bombTimer;
             }
         }
 
@@ -134,7 +135,9 @@ export class TimeBombMode {
 
                     const kx = b.vx - b2.vx;
                     const ky = b.vy - b2.vy;
-                    const p = 2 * (nx * kx + ny * ky) / 2;
+                    const dot = nx * kx + ny * ky;
+                    if (dot <= 0) continue; // Already separating
+                    const p = dot;
                     b.vx -= p * nx; b.vy -= p * ny;
                     b2.vx += p * nx; b2.vy += p * ny;
 
