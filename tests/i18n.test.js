@@ -4,7 +4,15 @@ import assert from 'node:assert/strict';
 import { TRANSLATIONS, SUPPORTED_LANGUAGES } from '../src/i18n/translations.js';
 import { i18n } from '../src/i18n/i18n.js';
 
-test('i18n - 5 Dil Desteği ve Sözlük Bütünlüğü', () => {
+const EXPECTED_25_MODES = [
+    'territory', 'multiplier', 'hexagonescape', 'circle', 'plinko',
+    'battleroyale', 'towercrush', 'blackhole', 'stairrace', 'lasercrossfire',
+    'sawblade', 'domino', 'pendulum', 'tugofwar', 'timebomb',
+    'wallclimb', 'icevslava', 'mitosis', 'magnetic', 'pachinko',
+    'portal', 'gravityflip', 'spiral', 'pinball', 'helix'
+];
+
+test('i18n - 5 Dil Desteği ve 25 Modluk Sözlük Bütünlüğü', () => {
     assert.equal(SUPPORTED_LANGUAGES.length, 5, 'Tam olarak 5 dil desteklenmeli');
 
     const expectedLangs = ['tr', 'en', 'es', 'pt', 'de'];
@@ -19,9 +27,8 @@ test('i18n - 5 Dil Desteği ve Sözlük Bütünlüğü', () => {
         assert.ok(dict.batchBtn, `'${lang}' için batchBtn çevirisi eksik`);
         assert.ok(dict.modes, `'${lang}' için modes nesnesi eksik`);
 
-        // 9 Modun tamamının çevirisi var mı?
-        const modeKeys = ['territory', 'multiplier', 'hexagonescape', 'circle', 'plinko', 'battleroyale', 'towercrush', 'blackhole', 'stairrace'];
-        modeKeys.forEach(mKey => {
+        // 25 Modun tamamının çevirisi var mı?
+        EXPECTED_25_MODES.forEach(mKey => {
             assert.ok(dict.modes[mKey], `'${lang}' dilinde '${mKey}' modu çevirisi eksik`);
             assert.ok(dict.modes[mKey].title, `'${lang}' dilinde '${mKey}.title' eksik`);
             assert.ok(dict.modes[mKey].sub, `'${lang}' dilinde '${mKey}.sub' eksik`);
@@ -40,6 +47,10 @@ test('i18n - Parametre İnterpolasyonu ve Dil Değişimi', () => {
     assert.equal(i18n.getLanguage(), 'de');
     const deBatch = i18n.t('batchBtn');
     assert.equal(deBatch, '⚡ 7-TAGE-PAKET RENDERN');
+
+    // 25. Mod Çevirisi Testi
+    const helixTitle = i18n.t('modes.helix.title');
+    assert.equal(helixTitle, 'Helix-Absturz');
 
     // Varsayılana geri dön
     i18n.setLanguage('tr');

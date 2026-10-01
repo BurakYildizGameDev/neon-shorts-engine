@@ -8,9 +8,17 @@ export class DSPSoundSynth {
         this.sampleRate = sampleRate;
         this.duration = durationSeconds;
         this.totalSamples = Math.round(sampleRate * durationSeconds);
+        this.currentTime = 0;
         // Stereo Kanallar (Sol ve Sağ)
         this.leftChannel = new Float32Array(this.totalSamples);
         this.rightChannel = new Float32Array(this.totalSamples);
+    }
+
+    /**
+     * Bleep / Plink tonu (Modlar arası evrensel köprü)
+     */
+    playBleep(frequency = 440, duration = 0.08, type = 'sine', pan = 0.0, volume = 0.5) {
+        this.addPlink(this.currentTime, frequency, pan, volume);
     }
 
     /**

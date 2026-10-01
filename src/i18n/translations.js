@@ -2,7 +2,7 @@
 
 export const TRANSLATIONS = {
     tr: {
-        badge: '⚡ 9 MODLU VIRAL SHORTS FABRİKASI',
+        badge: '⚡ 25 MODLU VIRAL SHORTS FABRİKASI',
         subtitle: '10.000+ Sonsuz Kombinasyon • 1080x1920 60FPS Saf MP4',
         gameType: 'OYUN TÜRÜ (ARCHETYPE)',
         teamSelection: 'TAKIM & İÇERİK SEÇİMİ',
@@ -45,11 +45,27 @@ export const TRANSLATIONS = {
             battleroyale: { title: 'Battle Royale', sub: '25 Top Hayatta Kalma' },
             towercrush: { title: 'Kule Parçalama', sub: '150+ Tuğla Yıkımı' },
             blackhole: { title: 'Kara Delik', sub: 'Yerçekimi Yörüngesi' },
-            stairrace: { title: 'Merdiven Yarışı', sub: '32 Basamak Tırmanış' }
+            stairrace: { title: 'Merdiven Yarışı', sub: '32 Basamak Tırmanış' },
+            lasercrossfire: { title: 'Lazer Çapraz Ateş', sub: 'Dönen Ölüm Işınları' },
+            sawblade: { title: 'Testere Parkuru', sub: 'Dönen Dişli Engeller' },
+            domino: { title: 'Domino Şelalesi', sub: '220 Taşlık Zincirleme Yıkım' },
+            pendulum: { title: 'Sarkaç Çekiçleri', sub: 'Dev Salınan Çekiçler' },
+            tugofwar: { title: 'Halat Çekme Savaşı', sub: 'Enerji Düğümü Düellosu' },
+            timebomb: { title: 'Saatli Bomba', sub: 'Sıcak Patates Kaosu' },
+            wallclimb: { title: 'Duvar Tırmanışı', sub: 'Zikzak Tırmanma Yarışı' },
+            icevslava: { title: 'Buz vs Lav', sub: 'Termal Alan Savaşı' },
+            mitosis: { title: 'Hücre Bölünmesi', sub: 'Mitoz Çoğalma Zinciri' },
+            magnetic: { title: 'Manyetik Kutuplar', sub: 'Artı Eksi Çekim Alanı' },
+            pachinko: { title: 'Çılgın Pachinko', sub: 'Pirinç Pinler & Fever' },
+            portal: { title: 'Boyut Kapıları', sub: 'Kuantum Işınlanma' },
+            gravityflip: { title: 'Yerçekimi Kaosu', sub: '4 Yönlü Ters Dönüş' },
+            spiral: { title: 'Arşimet Spirali', sub: 'Sarmal Girdap Yarışı' },
+            pinball: { title: 'Siber Pinball', sub: 'Otomatik Flipper & Bumper' },
+            helix: { title: 'Sarmal Kule İnişi', sub: 'Helix Jump & Fireball' }
         }
     },
     en: {
-        badge: '⚡ 9-MODE VIRAL SHORTS FACTORY',
+        badge: '⚡ 25-MODE VIRAL SHORTS FACTORY',
         subtitle: '10,000+ Infinite Combinations • 1080x1920 60FPS Pure MP4',
         gameType: 'GAME ARCHETYPE',
         teamSelection: 'TEAMS & CONTENT SELECTION',
@@ -92,11 +108,27 @@ export const TRANSLATIONS = {
             battleroyale: { title: 'Battle Royale', sub: '25 Balls Survival' },
             towercrush: { title: 'Tower Crush', sub: '150+ Brick Demolition' },
             blackhole: { title: 'Black Hole', sub: 'Gravity Vortex' },
-            stairrace: { title: 'Stair Race', sub: '32-Step Summit Climb' }
+            stairrace: { title: 'Stair Race', sub: '32-Step Summit Climb' },
+            lasercrossfire: { title: 'Laser Crossfire', sub: 'Rotating Death Beams' },
+            sawblade: { title: 'Sawblade Gauntlet', sub: 'Spinning Blade Obstacles' },
+            domino: { title: 'Domino Cascade', sub: '220-Tile Chain Reaction' },
+            pendulum: { title: 'Pendulum Hammers', sub: 'Giant Swinging Hammers' },
+            tugofwar: { title: 'Tug of War', sub: 'Energy Knot Duel' },
+            timebomb: { title: 'Time Bomb', sub: 'Hot Potato Chaos' },
+            wallclimb: { title: 'Wall Climb', sub: 'Zigzag Climbing Race' },
+            icevslava: { title: 'Ice vs Lava', sub: 'Thermal Biome Battle' },
+            mitosis: { title: 'Cell Mitosis', sub: 'Exponential Division Chain' },
+            magnetic: { title: 'Magnetic Polarity', sub: 'Dipole Attraction & Arcs' },
+            pachinko: { title: 'Pachinko Madness', sub: 'Brass Pins & Fever Slots' },
+            portal: { title: 'Portal Paradox', sub: 'Quantum Teleportation' },
+            gravityflip: { title: 'Gravity Inversion', sub: '4-Way Vector Flip' },
+            spiral: { title: 'Archimedes Spiral', sub: 'Vortex Inward Race' },
+            pinball: { title: 'Cyber Pinball', sub: 'Auto-Flippers & Bumpers' },
+            helix: { title: 'Helix Fall', sub: 'Helix Jump & Fireball Streak' }
         }
     },
     es: {
-        badge: '⚡ FÁBRICA VIRAL DE SHORTS (9 MODOS)',
+        badge: '⚡ FÁBRICA VIRAL DE SHORTS (25 MODOS)',
         subtitle: '10.000+ Combinaciones • 1080x1920 60FPS MP4 Puro',
         gameType: 'TIPO DE JUEGO (ARQUETIPO)',
         teamSelection: 'SELECCIÓN DE EQUIPOS Y CONTENIDO',
@@ -139,11 +171,27 @@ export const TRANSLATIONS = {
             battleroyale: { title: 'Battle Royale', sub: 'Supervivencia de 25 Bolas' },
             towercrush: { title: 'Destrucción de Torre', sub: 'Demolición de 150+ Ladrillos' },
             blackhole: { title: 'Agujero Negro', sub: 'Vórtice de Gravedad' },
-            stairrace: { title: 'Carrera de Escaleras', sub: 'Escalada de 32 Escalones' }
+            stairrace: { title: 'Carrera de Escaleras', sub: 'Escalada de 32 Escalones' },
+            lasercrossfire: { title: 'Fuego Cruzado Láser', sub: 'Rayos Giratorios de la Muerte' },
+            sawblade: { title: 'Desafío de Sierras', sub: 'Obstáculos de Hojas Giratorias' },
+            domino: { title: 'Cascada de Dominó', sub: 'Reacción en Cadena de 220 Fichas' },
+            pendulum: { title: 'Martillos de Péndulo', sub: 'Martillos Gigantes Oscilantes' },
+            tugofwar: { title: 'Tira y Afloja', sub: 'Duelo de Cuerda de Energía' },
+            timebomb: { title: 'Bomba de Relojería', sub: 'Caos de Patata Caliente' },
+            wallclimb: { title: 'Escalada de Muros', sub: 'Carrera de Salto en Zigzag' },
+            icevslava: { title: 'Hielo vs Lava', sub: 'Batalla de Biomas Térmicos' },
+            mitosis: { title: 'Mitosis Celular', sub: 'Cadena de División Exponencial' },
+            magnetic: { title: 'Polaridad Magnética', sub: 'Atracción Dipolar y Rayos' },
+            pachinko: { title: 'Locura Pachinko', sub: 'Clavos de Latón y Fiebre' },
+            portal: { title: 'Paradoja de Portales', sub: 'Teletransportación Cuántica' },
+            gravityflip: { title: 'Inversión de Gravedad', sub: 'Giro de Vector en 4 Direcciones' },
+            spiral: { title: 'Espiral de Arquímedes', sub: 'Carrera Hacia el Vórtice' },
+            pinball: { title: 'Pinball Cibernético', sub: 'Flippers Automáticos y Bumpers' },
+            helix: { title: 'Caída Helicoidal', sub: 'Salto en Hélice y Modo Bola de Fuego' }
         }
     },
     pt: {
-        badge: '⚡ FÁBRICA VIRAL DE SHORTS (9 MODOS)',
+        badge: '⚡ FÁBRICA VIRAL DE SHORTS (25 MODOS)',
         subtitle: '10.000+ Combinações • 1080x1920 60FPS MP4 Puro',
         gameType: 'TIPO DE JOGO (ARQUÉTIPO)',
         teamSelection: 'SELEÇÃO DE TIMES E CONTEÚDO',
@@ -186,11 +234,27 @@ export const TRANSLATIONS = {
             battleroyale: { title: 'Battle Royale', sub: 'Sobrevivência de 25 Bolas' },
             towercrush: { title: 'Destruição da Torre', sub: 'Demolição de 150+ Blocos' },
             blackhole: { title: 'Buraco Negro', sub: 'Vórtice de Gravidade' },
-            stairrace: { title: 'Corrida de Escadas', sub: 'Subida de 32 Degraus' }
+            stairrace: { title: 'Corrida de Escadas', sub: 'Subida de 32 Degraus' },
+            lasercrossfire: { title: 'Fogo Cruzado Laser', sub: 'Feixes de Morte Giratórios' },
+            sawblade: { title: 'Desafio das Serras', sub: 'Lâminas Giratórias Mortais' },
+            domino: { title: 'Cascata de Dominó', sub: 'Reação em Cadeia de 220 Peças' },
+            pendulum: { title: 'Martelos Pendulares', sub: 'Martelos Gigantes em Balanço' },
+            tugofwar: { title: 'Cabo de Guerra', sub: 'Duelo de Corda de Energia' },
+            timebomb: { title: 'Bomba-Relógio', sub: 'Caos da Batata Quente' },
+            wallclimb: { title: 'Escalada de Parede', sub: 'Corrida Ninja em Zigue-zague' },
+            icevslava: { title: 'Gelo vs Lava', sub: 'Batalha de Biomas Térmicos' },
+            mitosis: { title: 'Mitose Celular', sub: 'Cadeia de Multiplicação Exponencial' },
+            magnetic: { title: 'Polaridade Magnética', sub: 'Atração Dipolar e Arcos Elétricos' },
+            pachinko: { title: 'Loucura Pachinko', sub: 'Pinos de Latão e Modo Fever' },
+            portal: { title: 'Paradoxo dos Portais', sub: 'Teletransporte Quântico' },
+            gravityflip: { title: 'Inversão de Gravidade', sub: 'Giro Vetorial em 4 Sentidos' },
+            spiral: { title: 'Espiral de Arquimedes', sub: 'Corrida para o Vórtice Central' },
+            pinball: { title: 'Pinball Cibernético', sub: 'Flippers Automáticos e Bumpers' },
+            helix: { title: 'Queda em Hélice', sub: 'Descida Helix Jump e Bola de Fogo' }
         }
     },
     de: {
-        badge: '⚡ 9-MODI VIRALE SHORTS FABRIK',
+        badge: '⚡ 25-MODI VIRALE SHORTS FABRIK',
         subtitle: '10.000+ Unendliche Kombinationen • 1080x1920 60FPS Reines MP4',
         gameType: 'SPIELTYP (ARCHETYP)',
         teamSelection: 'TEAMAUSWAHL & INHALT',
@@ -233,7 +297,23 @@ export const TRANSLATIONS = {
             battleroyale: { title: 'Battle Royale', sub: '25 Bälle Überleben' },
             towercrush: { title: 'Turm-Zerstörung', sub: '150+ Ziegel-Abriss' },
             blackhole: { title: 'Schwarzes Loch', sub: 'Schwerkraft-Wirbel' },
-            stairrace: { title: 'Treppenrennen', sub: '32-Stufen-Gipfelaufstieg' }
+            stairrace: { title: 'Treppenrennen', sub: '32-Stufen-Gipfelaufstieg' },
+            lasercrossfire: { title: 'Laser-Kreuzfeuer', sub: 'Rotierende Todesstrahlen' },
+            sawblade: { title: 'Sägeblatt-Spießrutenlauf', sub: 'Drehende Klingenhindernisse' },
+            domino: { title: 'Domino-Kaskade', sub: '220-Steine-Kettenreaktion' },
+            pendulum: { title: 'Pendelhämmer', sub: 'Riesige Schwingende Hämmer' },
+            tugofwar: { title: 'Tauziehen', sub: 'Energieknoten-Duell' },
+            timebomb: { title: 'Zeitbombe', sub: 'Heiße-Kartoffel-Chaos' },
+            wallclimb: { title: 'Wandklettern', sub: 'Zickzack-Kletterduell' },
+            icevslava: { title: 'Eis vs Lava', sub: 'Thermisches Biom-Duell' },
+            mitosis: { title: 'Zellmitose', sub: 'Exponentielle Teilungskette' },
+            magnetic: { title: 'Magnetische Polarität', sub: 'Dipol-Anziehung & Lichtbögen' },
+            pachinko: { title: 'Pachinko-Wahnsinn', sub: 'Messingstifte & Fieber-Jackpot' },
+            portal: { title: 'Portal-Paradoxon', sub: 'Quanten-Teleportation' },
+            gravityflip: { title: 'Schwerkraft-Inversion', sub: '4-Wege-Vektordrehung' },
+            spiral: { title: 'Archimedische Spirale', sub: 'Wirbelrennen zum Zentrum' },
+            pinball: { title: 'Cyber-Flipper', sub: 'Automatische Flipper & Bumper' },
+            helix: { title: 'Helix-Absturz', sub: 'Helix Jump & Feuerball-Ketten' }
         }
     }
 };
